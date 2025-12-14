@@ -17,11 +17,13 @@ app.use('/products', ProductRoutes);
 const PORT = process.env.PORT || 6001;
 mongoose
   .connect(
-    'mongodb+srv://s22bdocs1m01174_db_user:nAiWZxj1sT8IB2Nv@maincluster.gehzeyy.mongodb.net/?appName=Mohsin-FYP'
+    'mongodb+srv://s22bdocs1m01174_db_user:nAiWZxj1sT8IB2Nv@maincluster.gehzeyy.mongodb.net/ecommerce_db?appName=Mohsin-FYP'
   )
   .then(() => {
     app.listen(PORT, () => console.log(`Server Connected on PORT ${PORT}`));
+    console.log('Connected to MongoDB - Database: ecommerce_db');
   })
-  .catch(() => {
+  .catch((err) => {
     console.log('Server didnt connect');
+    console.error('MongoDB connection error:', err);
   });
