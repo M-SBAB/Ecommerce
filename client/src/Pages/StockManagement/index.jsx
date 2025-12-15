@@ -56,63 +56,67 @@ export default function StockUpdate() {
   }, []);
 
   return (
-    <div className='min-h-screen bg-gray-50 p-8'>
-      <div className='max-w-2xl mx-auto'>
-        {/* Header */}
-        <div className='mb-8'>
-          <div className='flex items-center gap-3 mb-2'>
-            <div className='w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center'>
-              <Package className='w-5 h-5 text-white' />
+    <div className='min-h-screen bg-gray-50'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8'>
+        <div className='max-w-2xl mx-auto space-y-6'>
+          {/* Header */}
+          <div>
+            <div className='flex items-center gap-3 mb-2'>
+              <div className='w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center'>
+                <Package className='w-5 h-5 text-white' />
+              </div>
+              <h1 className='text-3xl font-light text-gray-900'>
+                Stock Update
+              </h1>
             </div>
-            <h1 className='text-3xl font-light text-gray-900'>Stock Update</h1>
+            <div className='h-0.5 w-16 bg-gray-900'></div>
           </div>
-          <div className='h-0.5 w-16 bg-gray-900'></div>
-        </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit(updatestock)}>
-          <div className='bg-white border border-gray-200 rounded-lg p-8'>
-            <div className='space-y-6'>
-              {/* Product Name */}
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-2'>
-                  Product Name
-                </label>
-                <select
-                  name=''
-                  id=''
-                  className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900'
-                  {...register('ProductId', { required: true })}
+          {/* Form */}
+          <form onSubmit={handleSubmit(updatestock)}>
+            <div className='bg-white border border-gray-200 rounded-lg p-6 sm:p-8'>
+              <div className='space-y-6'>
+                {/* Product Name */}
+                <div>
+                  <label className='block text-sm font-medium text-gray-700 mb-2'>
+                    Product Name
+                  </label>
+                  <select
+                    name=''
+                    id=''
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900'
+                    {...register('ProductId', { required: true })}
+                  >
+                    {products?.map((product) => (
+                      <option value={product._id}>{product.productName}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Quantity */}
+                <div>
+                  <label className='block text-sm font-medium text-gray-700 mb-2'>
+                    Stock Quantity
+                  </label>
+                  <input
+                    type='number'
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900'
+                    placeholder='Enter quantity'
+                    {...register('UpdateStock', { required: true })}
+                  />
+                </div>
+
+                {/* Update Button */}
+                <button
+                  onClick={handleUpdate}
+                  className='btn-primary btn-lg btn-full'
                 >
-                  {products?.map((product) => (
-                    <option value={product._id}>{product.productName}</option>
-                  ))}
-                </select>
+                  Update Stock
+                </button>
               </div>
-
-              {/* Quantity */}
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-2'>
-                  Stock Quantity
-                </label>
-                <input
-                  type='number'
-                  className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900'
-                  placeholder='Enter quantity'
-                  {...register('UpdateStock', { required: true })}
-                />
-              </div>
-
-              {/* Update Button */}
-              <button
-                onClick={handleUpdate}
-                className='btn-primary btn-lg btn-full'
-              >
-                Update Stock
-              </button>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
