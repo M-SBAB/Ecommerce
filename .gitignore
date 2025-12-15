@@ -81,3 +81,4 @@ Thumbs.db
 # yarn.lock
 client/THEME_GUIDE.md
 RBAC_IMPLEMENTATION.md
+LOGOUT_IMPLEMENTATION.md
