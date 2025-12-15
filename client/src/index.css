@@ -547,3 +547,99 @@ body {
 .hover-scale:hover {
   transform: scale(1.05);
 }
+
+/* ===================================
+   Responsive Sidebar Animations
+   =================================== */
+
+/* Smooth sidebar slide animation */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* Mobile overlay fade */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Hamburger menu animation */
+.hamburger-line {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Smooth transitions for layout shifts */
+.main-content-shift {
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+/* Mobile-first responsive utilities */
+@media (max-width: 1023px) {
+  /* Hide sidebar by default on mobile/tablet */
+  .sidebar-mobile-hidden {
+    transform: translateX(-100%);
+  }
+
+  /* Show sidebar when open on mobile/tablet */
+  .sidebar-mobile-open {
+    transform: translateX(0);
+  }
+
+  /* Prevent body scroll when mobile sidebar is open */
+  .sidebar-open {
+    overflow: hidden;
+  }
+}
+
+/* Desktop sidebar always visible */
+@media (min-width: 1024px) {
+  .sidebar-desktop {
+    transform: translateX(0) !important;
+  }
+}
+
+/* Enhanced hover states for interactive elements */
+.interactive-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.interactive-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.interactive-hover:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

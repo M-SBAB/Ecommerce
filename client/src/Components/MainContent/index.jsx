@@ -1,12 +1,16 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from '../Navbar';
 
-const MainContent = () => {
+const MainContent = ({ toggleSidebar }) => {
   return (
-    <div className='flex-1 bg-yellow-200 overflow-scroll h-screen'>
-        <Outlet/>
+    <div className='flex-1 flex flex-col min-h-screen overflow-hidden'>
+      <Navbar onMenuClick={toggleSidebar} />
+      <div className='flex-1 overflow-auto bg-gray-50'>
+        <Outlet />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MainContent
+export default MainContent;
