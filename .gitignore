@@ -80,3 +80,4 @@ Thumbs.db
 # package-lock.json
 # yarn.lock
 client/THEME_GUIDE.md
+RBAC_IMPLEMENTATION.md
