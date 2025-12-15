@@ -10,6 +10,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Auth = () => {
   const {
@@ -23,6 +24,7 @@ const Auth = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const Navigate = useNavigate();
+  const { login } = useAuth();
 
   const loginUser = async (data) => {
     setLoading(true);
@@ -45,8 +47,8 @@ const Auth = () => {
 
       if (res.ok && response.user) {
         setSuccess('Login successful! Redirecting...');
-        // Store user data in localStorage if needed
-        localStorage.setItem('user', JSON.stringify(response.user));
+        // Use AuthContext login function to manage global state
+        login(response.user);
         setTimeout(() => {
           Navigate('/dashboard');
         }, 1000);
