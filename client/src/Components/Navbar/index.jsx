@@ -14,7 +14,7 @@ const Navbar = ({ onMenuClick }) => {
 
   return (
     <div className='bg-white shadow-md border-b border-gray-200'>
-      <div className='flex items-center justify-between px-4 sm:px-6 py-4'>
+      <div className='flex items-center justify-between px-4 sm:px-6 py-10'>
         {/* Hamburger Menu - Mobile Only */}
         <button
           onClick={onMenuClick}
