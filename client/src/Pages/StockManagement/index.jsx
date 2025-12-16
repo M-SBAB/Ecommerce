@@ -20,8 +20,6 @@ export default function StockUpdate() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmData, setConfirmData] = useState(null);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [confirmData, setConfirmData] = useState(null);
 
   // Watch form fields for real-time updates
   const selectedProductId = watch('ProductId');
