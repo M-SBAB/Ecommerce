@@ -22,7 +22,7 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      let url = 'http://localhost:5000/products/all?';
+      let url = 'http://localhost:6001/products/all?';
       const params = [];
 
       if (searchTerm) params.push(`search=${encodeURIComponent(searchTerm)}`);

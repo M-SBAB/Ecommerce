@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AlertCircle, Check, Package, Upload, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddProductForm() {
   const {
@@ -11,10 +12,11 @@ export default function AddProductForm() {
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const addProduct = async (data) => {
     try {
-      const res = await fetch('http://localhost:5000/products/add', {
+      const res = await fetch('http://localhost:6001/products/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,6 +33,8 @@ export default function AddProductForm() {
       const response = await res.json();
       if (response.message) {
         alert(response.message);
+        // Navigate to list products page after successful addition
+        navigate('/Dashboard/list');
         reset(); // Clear the form on success
       } else if (response.ErrorMessage) {
         alert(response.ErrorMessage);

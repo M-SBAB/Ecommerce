@@ -18,7 +18,7 @@ export default function ProductList() {
 
   const getAllProducts = async () => {
     try {
-      let url = 'http://localhost:5000/products/all';
+      let url = 'http://localhost:6001/products/all';
       if (searchTerm) {
         url += `?search=${searchTerm}`;
       }
@@ -66,16 +66,13 @@ export default function ProductList() {
     }
 
     try {
-      const res = await fetch(
-        `http://localhost:5000/products/${productId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ userId: user._id }),
-        }
-      );
+      const res = await fetch(`http://localhost:6001/products/${productId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: user._id }),
+      });
       const response = await res.json();
       if (response.message) {
         alert(response.message);
@@ -93,7 +90,7 @@ export default function ProductList() {
     e.preventDefault();
     try {
       const res = await fetch(
-        `http://localhost:5000/products/${editingProduct._id}`,
+        `http://localhost:6001/products/${editingProduct._id}`,
         {
           method: 'PUT',
           headers: {
@@ -179,7 +176,9 @@ export default function ProductList() {
                   <tr>
                     <th className='px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'>
                       Image
-                    </Product Name
+                    </th>
+                    <th className='px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'>
+                      Product Name
                     </th>
                     <th className='px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'>
                       Category
@@ -194,15 +193,16 @@ export default function ProductList() {
                       Status
                     </th>
                     <th className='px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'>
-                      Action
-                    <th className='px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'>
-                      Status
+                      Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-200'>
-                  {/* Sample Row 1 */}
-key={product._id} className='hover:bg-gray-50 transition-colors'>
+                  {products?.map((product) => (
+                    <tr
+                      key={product._id}
+                      className='hover:bg-gray-50 transition-colors'
+                    >
                       <td className='px-6 py-4 whitespace-nowrap'>
                         <img
                           src='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop'
@@ -223,6 +223,46 @@ key={product._id} className='hover:bg-gray-50 transition-colors'>
                       <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
                         ${product.price}
                       </td>
+                      <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
+                        {product.quantity}
+                      </td>
+                      <td className='px-6 py-4 whitespace-nowrap'>
+                        {product.quantity > 0 ? (
+                          <span className='px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800'>
+                            In Stock
+                          </span>
+                        ) : (
+                          <span className='px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800'>
+                            Out of Stock
+                          </span>
+                        )}
+                      </td>
+                      <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
+                        <div className='flex gap-2'>
+                          <button
+                            onClick={() => handleEditClick(product)}
+                            className='text-blue-600 hover:text-blue-900 p-2 hover:bg-blue-50 rounded-lg transition-colors'
+                            title='Edit product'
+                          >
+                            <Edit className='w-5 h-5' />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteClick(product._id)}
+                            className='text-red-600 hover:text-red-900 p-2 hover:bg-red-50 rounded-lg transition-colors'
+                            title='Delete product'
+                          >
+                            <Trash2 className='w-5 h-5' />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Edit Product Modal */}
       {showEditModal && (
@@ -230,9 +270,7 @@ key={product._id} className='hover:bg-gray-50 transition-colors'>
           <div className='bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto'>
             {/* Modal Header */}
             <div className='flex items-center justify-between p-6 border-b border-gray-200'>
-              <h2 className='text-2xl font-bold text-gray-900'>
-                Edit Product
-              </h2>
+              <h2 className='text-2xl font-bold text-gray-900'>Edit Product</h2>
               <button
                 onClick={() => {
                   setShowEditModal(false);
@@ -375,48 +413,6 @@ key={product._id} className='hover:bg-gray-50 transition-colors'>
           </div>
         </div>
       )}
-                      <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
-                        {product.quantity}
-                      </td>
-                      <td className='px-6 py-4 whitespace-nowrap'>
-                        {product.quantity > 0 ? (
-                          <span className='px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800'>
-                            In Stock
-                          </span>
-                        ) : (
-                          <span className='px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800'>
-                            Out of Stock
-                          </span>
-                        )}
-                      </td>
-                      <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
-                        <div className='flex gap-2'>
-                          <button
-                            onClick={() => handleEditClick(product)}
-                            className='text-blue-600 hover:text-blue-900 p-2 hover:bg-blue-50 rounded-lg transition-colors'
-                            title='Edit product'
-                          >
-                            <Edit className='w-5 h-5' />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteClick(product._id)}
-                            className='text-red-600 hover:text-red-900 p-2 hover:bg-red-50 rounded-lg transition-colors'
-                            title='Delete product'
-                          >
-                            <Trash2 className='w-5 h-5' />
-                          </button>
-                        </div>
-                      me}</td>
-                      <td>{product.price}</td>
-                      <td>{product.quantity}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

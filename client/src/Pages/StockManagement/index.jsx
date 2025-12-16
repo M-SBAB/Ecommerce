@@ -22,7 +22,7 @@ export default function StockUpdate() {
   const [products, setProducts] = useState(null);
 
   const getAllProducts = async () => {
-    const res = await fetch('http://localhost:5000/products/all', {
+    const res = await fetch('http://localhost:6001/products/all', {
       method: 'GET',
     });
     const response = await res.json({});
@@ -36,7 +36,7 @@ export default function StockUpdate() {
 
   const updatestock = async (data) => {
     const res = await fetch(
-      `http://localhost:5000/products/${data.ProductId}/Update`,
+      `http://localhost:6001/products/${data.ProductId}/Update`,
       {
         method: 'PATCH',
         headers: {
