@@ -6,6 +6,7 @@ import cors from 'cors';
 import UserRoutes from './routes/user.js';
 import ProductRoutes from './routes/products.js';
 import OrderRoutes from './routes/order.js';
+import DashboardRoutes from './routes/dashboard.js';
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,7 @@ dotenv.config();
 app.use('/auth', UserRoutes);
 app.use('/products', ProductRoutes);
 app.use('/orders', OrderRoutes);
+app.use('/dashboard', DashboardRoutes);
 
 const PORT = process.env.PORT || 6001;
 mongoose
