@@ -6,6 +6,7 @@ import {
   getOrderById,
   updateOrderStatus,
   cancelOrder,
+  updatePaymentStatus,
 } from '../controllers/order.js';
 import { isAdmin } from '../controllers/user.js';
 
@@ -20,5 +21,6 @@ router.patch('/:orderId/cancel', cancelOrder); // User can cancel their own orde
 // Admin only routes
 router.get('/', isAdmin, getAllOrders); // Get all orders (admin)
 router.patch('/:orderId/status', isAdmin, updateOrderStatus); // Update order status (admin)
+router.patch('/:orderId/payment-status', isAdmin, updatePaymentStatus); // Update payment status (admin)
 
 export default router;

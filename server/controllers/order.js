@@ -116,12 +116,101 @@ export const getUserOrders = async (req, res) => {
 // Get all orders (admin only)
 export const getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find()
+    const {
+      page = 1,
+      limit = 10,
+      search = '',
+      status = '',
+      startDate = '',
+      endDate = '',
+    } = req.query;
+
+    // Build query
+    const query = {};
+
+    // Status filter
+    if (status && status !== 'All') {
+      query.status = status;
+    }
+
+    // Date range filter
+    if (startDate || endDate) {
+      query.createdAt = {};
+      if (startDate) {
+        query.createdAt.$gte = new Date(startDate);
+      }
+      if (endDate) {
+        const endDateTime = new Date(endDate);
+        endDateTime.setHours(23, 59, 59, 999);
+        query.createdAt.$lte = endDateTime;
+      }
+    }
+
+    // Search filter (order ID, customer name, product name)
+    if (search) {
+      const orders = await Order.find(query)
+        .populate('userId', 'username email')
+        .populate('items.productId', 'productName category');
+
+      const filteredOrders = orders.filter((order) => {
+        const searchLower = search.toLowerCase();
+        const matchesId = order._id
+          .toString()
+          .toLowerCase()
+          .includes(searchLower);
+        const matchesCustomer = order.customerName
+          ?.toLowerCase()
+          .includes(searchLower);
+        const matchesProduct = order.items.some((item) =>
+          item.productName?.toLowerCase().includes(searchLower)
+        );
+        return matchesId || matchesCustomer || matchesProduct;
+      });
+
+      // Pagination after filtering
+      const pageNum = parseInt(page);
+      const limitNum = parseInt(limit);
+      const startIndex = (pageNum - 1) * limitNum;
+      const endIndex = startIndex + limitNum;
+      const paginatedOrders = filteredOrders
+        .sort((a, b) => b.createdAt - a.createdAt)
+        .slice(startIndex, endIndex);
+
+      return res.status(200).json({
+        orders: paginatedOrders,
+        pagination: {
+          currentPage: pageNum,
+          totalPages: Math.ceil(filteredOrders.length / limitNum),
+          totalOrders: filteredOrders.length,
+          ordersPerPage: limitNum,
+        },
+      });
+    }
+
+    // Count total documents
+    const total = await Order.countDocuments(query);
+
+    // Pagination
+    const pageNum = parseInt(page);
+    const limitNum = parseInt(limit);
+    const skip = (pageNum - 1) * limitNum;
+
+    const orders = await Order.find(query)
       .populate('userId', 'username email')
       .populate('items.productId', 'productName category')
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limitNum);
 
-    res.status(200).json({ orders });
+    res.status(200).json({
+      orders,
+      pagination: {
+        currentPage: pageNum,
+        totalPages: Math.ceil(total / limitNum),
+        totalOrders: total,
+        ordersPerPage: limitNum,
+      },
+    });
   } catch (error) {
     res.status(500).json({ ErrorMessage: error.message });
   }
@@ -230,6 +319,34 @@ export const cancelOrder = async (req, res) => {
 
     res.status(200).json({
       message: 'Order cancelled successfully',
+      order,
+    });
+  } catch (error) {
+    res.status(500).json({ ErrorMessage: error.message });
+  }
+};
+
+// Update payment status (admin only)
+export const updatePaymentStatus = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { paymentStatus } = req.body;
+
+    const validPaymentStatuses = ['pending', 'paid', 'failed', 'refunded'];
+    if (!validPaymentStatuses.includes(paymentStatus)) {
+      return res.status(400).json({ ErrorMessage: 'Invalid payment status' });
+    }
+
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ ErrorMessage: 'Order not found' });
+    }
+
+    order.paymentStatus = paymentStatus;
+    await order.save();
+
+    res.status(200).json({
+      message: 'Payment status updated successfully',
       order,
     });
   } catch (error) {

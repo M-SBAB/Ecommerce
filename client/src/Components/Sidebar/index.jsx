@@ -8,7 +8,6 @@ import {
   PackagePlus,
   Package,
   Settings,
-  Eye,
   ShoppingBag,
   FileText,
   ShoppingCart,
@@ -30,7 +29,6 @@ const Sidebar = ({ isOpen, onClose }) => {
       icon: Package,
     },
     { path: '/Dashboard/ManageOrder', label: 'Manage Orders', icon: Settings },
-    { path: '/Dashboard/ViewOrder', label: 'View Orders', icon: Eye },
   ];
 
   // User navigation items

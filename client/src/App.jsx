@@ -5,7 +5,6 @@ import Auth from './Pages/Auth';
 import Stats from './Pages/Stats';
 import Products from './Pages/Products';
 import ListProducts from './Pages/ListProducts';
-import ViewOrder from './Pages/ViewOrder';
 import ManageOrder from './Pages/ManageOrder';
 import StockManagement from './Pages/StockManagement';
 import PlaceOrder from './Pages/PlaceOrder';
@@ -15,6 +14,7 @@ import MyOrder from './Pages/MyOrder';
 import Login from './Pages/Login';
 import FrontPage from './Pages/FrontPage';
 import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 function App() {
   return (
@@ -24,19 +24,78 @@ function App() {
           <Routes>
             <Route path='/' element={<Auth />} />
             <Route path='/Dashboard' element={<Dashboard />}>
-              <Route index element={<Stats />} />
-              <Route path='products' element={<Products />} />
-              <Route path='list' element={<ListProducts />} />
-              <Route path='AddProducts' element={<AddProducts />} />
-              <Route path='ViewOrder' element={<ViewOrder />} />
-              <Route path='ManageOrder' element={<ManageOrder />} />
-              <Route path='StockManagement' element={<StockManagement />} />
+              {/* Admin Routes */}
+              <Route
+                index
+                element={
+                  <ProtectedRoute requiredRole='admin'>
+                    <Stats />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='AddProducts'
+                element={
+                  <ProtectedRoute requiredRole='admin'>
+                    <AddProducts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='list'
+                element={
+                  <ProtectedRoute requiredRole='admin'>
+                    <ListProducts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='StockManagement'
+                element={
+                  <ProtectedRoute requiredRole='admin'>
+                    <StockManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='ManageOrder'
+                element={
+                  <ProtectedRoute requiredRole='admin'>
+                    <ManageOrder />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* User Routes */}
+              <Route
+                path='products'
+                element={
+                  <ProtectedRoute requiredRole='user'>
+                    <Products />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='MyOrder'
+                element={
+                  <ProtectedRoute requiredRole='user'>
+                    <MyOrder />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='AddToCart'
+                element={
+                  <ProtectedRoute requiredRole='user'>
+                    <AddToCart />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Shared/Utility Routes (accessible by authenticated users) */}
               <Route path='PlaceOrder' element={<PlaceOrder />} />
               <Route path='SearchProduct' element={<SearchProduct />} />
-              <Route path='AddToCart' element={<AddToCart />} />
-              <Route path='MyOrder' element={<MyOrder />} />
               <Route path='FrontPage' element={<FrontPage />} />
-              {/* <Route path = "Auth" element = {<Auth/>}/> */}
             </Route>
             {/* <Route path ="/Login" element = {<Login/>} /> */}
           </Routes>
