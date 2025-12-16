@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { AlertCircle, Check, Package, Upload, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-// import { useState } from 'react';
-
-// code for data connection with backend
 
 export default function AddProductForm() {
   const {
@@ -12,6 +9,7 @@ export default function AddProductForm() {
     reset,
     formState: { errors },
   } = useForm();
+
   const addProduct = async (data) => {
     const res = await fetch('http://localhost:5000/products/add', {
       method: 'POST',
@@ -28,204 +26,204 @@ export default function AddProductForm() {
     });
     const response = await res.json();
     console.log(response);
-    // console.log({name:data.addProductName,category:data.addProductCategory,
-    //     price:data.addProductPrice,quantity:data.addProductQuantity,
-    //     description:data.addProductDescription})
-    // if(response.addProduct){
-    // Navigate("/dashboard")
-
-    // else if(response.ErrorMessage){
-    //   alert(response.ErrorMessage)
-    // }
   };
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8'>
-        <div className='max-w-2xl mx-auto space-y-6'>
-          <div className='bg-white rounded-lg shadow-lg p-6 sm:p-8'>
-            {/* Header */}
-            <div className='flex items-center gap-3 mb-6'>
-              <div className='bg-indigo-600 p-3 rounded-lg'>
-                <Package className='w-6 h-6 text-white' />
-              </div>
+    <div className='min-h-full bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50'>
+      <div className='h-full'>
+        {/* Page Header */}
+        <div className='mb-6'>
+          <div className='flex items-center gap-4 mb-3'>
+            <div className='bg-gradient-to-br from-primary-600 to-primary-700 p-4 rounded-xl shadow-lg'>
+              <Package className='w-8 h-8 text-white' />
+            </div>
+            <div>
+              <h1 className='text-3xl md:text-4xl font-bold text-gray-900 tracking-tight'>
+                Add New Product
+              </h1>
+              <p className='text-base text-gray-600 mt-1'>
+                Fill in the product details to add to your inventory
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Form Container */}
+        <div className='bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden h-full'>
+          <div className='p-6 sm:p-8 md:p-10 lg:p-12'>
+            <form onSubmit={handleSubmit(addProduct)} className='space-y-7'>
+              {/* Product Name */}
               <div>
-                <h1 className='text-2xl font-bold text-gray-800'>
-                  Add New Product
-                </h1>
-                <p className='text-sm text-gray-600'>
-                  Add product details to inventory
-                </p>
+                <label
+                  htmlFor='name'
+                  className='block text-sm font-bold text-gray-900 mb-3 tracking-wide'
+                >
+                  Product Name <span className='text-error-500'>*</span>
+                </label>
+                <input
+                  type='text'
+                  name='name'
+                  className={`w-full px-6 py-4 text-base border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 ${
+                    errors.name
+                      ? 'border-error-500 bg-error-50'
+                      : 'border-gray-300 bg-gray-50 focus:bg-white'
+                  }`}
+                  placeholder='Enter product name'
+                  {...register('addProductName', { required: true })}
+                />
+                {errors.addProductName && (
+                  <div className='mt-2 flex items-center gap-2 text-error-600 text-sm'>
+                    <AlertCircle className='w-4 h-4' />
+                    <span>Product name is required</span>
+                  </div>
+                )}
               </div>
-            </div>
 
-            {/* Success Message */}
-            {/* {success && (
-            <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
-              <Check className="w-5 h-5 text-green-600" />
-              <span className="text-green-800 font-medium">Product added successfully!</span>
-            </div>
-          )} */}
+              {/* Category */}
+              <div>
+                <label
+                  htmlFor='category'
+                  className='block text-sm font-bold text-gray-900 mb-3 tracking-wide'
+                >
+                  Category <span className='text-error-500'>*</span>
+                </label>
+                <select
+                  id='category'
+                  name='category'
+                  className={`w-full px-6 py-4 text-base border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 ${
+                    errors.category
+                      ? 'border-error-500 bg-error-50'
+                      : 'border-gray-300 bg-gray-50 focus:bg-white'
+                  }`}
+                  {...register('addProductCategory', { required: true })}
+                >
+                  <option value=''>Select a category</option>
+                  <option value='electronics'>Electronics</option>
+                  <option value='clothing'>Clothing</option>
+                  <option value='food'>Food & Beverages</option>
+                  <option value='books'>Books</option>
+                  <option value='home'>Home & Garden</option>
+                  <option value='sports'>Sports</option>
+                </select>
+                {errors.addProductCategory && (
+                  <div className='mt-2 flex items-center gap-2 text-error-600 text-sm'>
+                    <AlertCircle className='w-4 h-4' />
+                    <span>Please select a category</span>
+                  </div>
+                )}
+              </div>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit(addProduct)}>
-              <div className='space-y-6'>
-                {/* Product Name */}
+              {/* Price and Quantity Row */}
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-7'>
+                {/* Price */}
                 <div>
                   <label
-                    htmlFor='name'
-                    className='block text-sm font-medium text-gray-700 mb-2'
+                    htmlFor='price'
+                    className='block text-sm font-bold text-gray-900 mb-3 tracking-wide'
                   >
-                    Product Name <span className='text-red-500'>*</span>
+                    Price (Rs:) <span className='text-error-500'>*</span>
                   </label>
                   <input
-                    type='text'
-                    name='name'
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
-                      errors.name ? 'border-red-500' : 'border-gray-300'
+                    type='number'
+                    id='price'
+                    name='price'
+                    step='0.01'
+                    className={`w-full px-6 py-4 text-base border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 ${
+                      errors.price
+                        ? 'border-error-500 bg-error-50'
+                        : 'border-gray-300 bg-gray-50 focus:bg-white'
                     }`}
-                    placeholder='Enter product name'
-                    // code for backend
-                    {...register('addProductName', { required: true })}
+                    placeholder='0.00'
+                    {...register('addProductPrice', { required: true, min: 0 })}
                   />
-                  {/* {errors.name && (
-                <div className="mt-2 flex items-center gap-2 text-red-600 text-sm">
-                  <AlertCircle className="w-4 h-4" />
-                  <span>{errors.name}</span>
-                </div>
-              )} */}
-                </div>
-
-                {/* Category */}
-                <div>
-                  <label
-                    htmlFor='category'
-                    className='block text-sm font-medium text-gray-700 mb-2'
-                  >
-                    Category <span className='text-red-500'>*</span>
-                  </label>
-                  <select
-                    id='category'
-                    name='category'
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
-                      errors.category ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    {...register('addProductCategory', { required: true })}
-                  >
-                    <option value=''>Select a category</option>
-                    <option value='electronics'>Electronics</option>
-                    <option value='clothing'>Clothing</option>
-                    <option value='food'>Food & Beverages</option>
-                    <option value='books'>Books</option>
-                    <option value='home'>Home & Garden</option>
-                    <option value='sports'>Sports</option>
-                    {/* coding for backend */}
-                  </select>
-                  {errors.category && (
-                    <div className='mt-2 flex items-center gap-2 text-red-600 text-sm'>
+                  {errors.addProductPrice && (
+                    <div className='mt-2 flex items-center gap-2 text-error-600 text-sm'>
                       <AlertCircle className='w-4 h-4' />
-                      <span>{errors.category}</span>
+                      <span>Valid price is required</span>
                     </div>
                   )}
                 </div>
 
-                {/* Price and Quantity Row */}
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                  {/* Price */}
-                  <div>
-                    <label
-                      htmlFor='price'
-                      className='block text-sm font-medium text-gray-700 mb-2'
-                    >
-                      Price (Rs:) <span className='text-red-500'>*</span>
-                    </label>
-                    <input
-                      type='number'
-                      id='price'
-                      name='price'
-                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
-                        errors.price ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                      placeholder='0.00'
-                      //code for backend
-                      {...register('addProductPrice', { required: true })}
-                    />
-                    {errors.price && (
-                      <div className='mt-2 flex items-center gap-2 text-red-600 text-sm'>
-                        <AlertCircle className='w-4 h-4' />
-                        <span>{errors.price}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Quantity */}
-                  <div>
-                    <label
-                      htmlFor='quantity'
-                      className='block text-sm font-medium text-gray-700 mb-2'
-                    >
-                      Quantity <span className='text-red-500'>*</span>
-                    </label>
-                    <input
-                      type='number'
-                      id='quantity'
-                      name='quantity'
-                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
-                        errors.quantity ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                      placeholder='0'
-                      // code for backend
-                      {...register('addProductQuantity', { required: true })}
-                    />
-                    {errors.quantity && (
-                      <div className='mt-2 flex items-center gap-2 text-red-600 text-sm'>
-                        <AlertCircle className='w-4 h-4' />
-                        <span>{errors.quantity}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Description */}
+                {/* Quantity */}
                 <div>
                   <label
-                    htmlFor='description'
-                    className='block text-sm font-medium text-gray-700 mb-2'
+                    htmlFor='quantity'
+                    className='block text-sm font-bold text-gray-900 mb-3 tracking-wide'
                   >
-                    Description
+                    Quantity <span className='text-error-500'>*</span>
                   </label>
-                  <textarea
-                    id='description'
-                    name='description'
-                    rows='4'
-                    className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none'
-                    placeholder='Enter product description (optional)'
-                    // code for backend
-                    {...register('addProductDescription', { required: true })}
+                  <input
+                    type='number'
+                    id='quantity'
+                    name='quantity'
+                    className={`w-full px-6 py-4 text-base border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 ${
+                      errors.quantity
+                        ? 'border-error-500 bg-error-50'
+                        : 'border-gray-300 bg-gray-50 focus:bg-white'
+                    }`}
+                    placeholder='0'
+                    {...register('addProductQuantity', {
+                      required: true,
+                      min: 1,
+                    })}
                   />
-                </div>
-
-                {/* Product Image */}
-                <div>
-                  <label className='block text-sm font-medium text-gray-700 mb-2'>
-                    Product Image
-                  </label>
-                </div>
-
-                {/* Buttons */}
-                <div className='flex gap-4 pt-4'>
-                  <button type='submit' className='btn-primary btn-lg btn-full'>
-                    Add product
-                  </button>
-                  <button
-                    type='button'
-                    className='btn-secondary btn-lg btn-full'
-                  >
-                    Reset
-                  </button>
+                  {errors.addProductQuantity && (
+                    <div className='mt-2 flex items-center gap-2 text-error-600 text-sm'>
+                      <AlertCircle className='w-4 h-4' />
+                      <span>Valid quantity is required</span>
+                    </div>
+                  )}
                 </div>
               </div>
+
+              {/* Description */}
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-bold text-gray-900 mb-3 tracking-wide'
+                >
+                  Description
+                </label>
+                <textarea
+                  id='description'
+                  name='description'
+                  rows='6'
+                  className='w-full px-6 py-4 text-base border-2 border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 focus:bg-white outline-none transition-all duration-200 resize-none'
+                  placeholder='Enter product description (optional)'
+                  {...register('addProductDescription')}
+                />
+                <p className='mt-2 text-sm text-gray-500'>
+                  Provide a detailed description of the product
+                </p>
+              </div>
+
+              {/* Buttons */}
+              <div className='flex flex-col sm:flex-row gap-4 pt-8 mt-8 border-t-2 border-gray-200'>
+                <button
+                  type='submit'
+                  className='btn-primary btn-xl flex-1 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl'
+                >
+                  <Package className='w-5 h-5' />
+                  Add Product
+                </button>
+                <button
+                  type='button'
+                  onClick={() => reset()}
+                  className='btn-outline btn-xl flex-1 flex items-center justify-center gap-3 hover:shadow-md'
+                >
+                  <X className='w-5 h-5' />
+                  Reset Form
+                </button>
+              </div>
             </form>
+          </div>
+
+          {/* Help Text - Moved inside form container */}
+          <div className='px-6 sm:px-8 md:px-10 lg:px-12 pb-6 bg-gray-50 border-t border-gray-200'>
+            <p className='text-sm text-gray-600 text-center py-4'>
+              All fields marked with{' '}
+              <span className='text-error-500 font-bold'>*</span> are required
+            </p>
           </div>
         </div>
       </div>
