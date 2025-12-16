@@ -41,7 +41,7 @@ export default function OrderManagement() {
       setIsLoading(true);
       setError(null);
       const response = await fetch(
-        `http://localhost:5000/api/orders/user/${user._id}`,
+        `http://localhost:6001/orders/user/${user._id}`,
         {
           method: 'GET',
           headers: {
@@ -77,7 +77,7 @@ export default function OrderManagement() {
       setError(null);
 
       const response = await fetch(
-        `http://localhost:5000/api/orders/${selectedOrder._id}/cancel`,
+        `http://localhost:6001/orders/${selectedOrder._id}/cancel`,
         {
           method: 'PATCH',
           headers: {

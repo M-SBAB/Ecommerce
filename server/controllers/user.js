@@ -55,7 +55,13 @@ export const loginUser = async (req, res) => {
 // Middleware to check if user is admin
 export const isAdmin = async (req, res, next) => {
   try {
-    const { userId } = req.body;
+    // Get userId from body (POST/PATCH) or query params (GET)
+    const userId = req.body.userId || req.query.userId;
+
+    if (!userId) {
+      return res.status(400).json({ ErrorMessage: 'User ID is required' });
+    }
+
     const user = await User.findById(userId);
 
     if (!user) return res.status(404).json({ ErrorMessage: 'User not found' });

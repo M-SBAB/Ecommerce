@@ -19,8 +19,10 @@ import {
 } from 'lucide-react';
 import OrderTimeline from '../../Components/OrderTimeline';
 import Toast from '../../Components/Toast';
+import { useAuth } from '../../context/AuthContext';
 
 const OrderViewUpdateUI = () => {
+  const { user } = useAuth();
   const [orders, setOrders] = useState([]);
   const [editingOrder, setEditingOrder] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,7 +35,7 @@ const OrderViewUpdateUI = () => {
   const [toast, setToast] = useState(null);
   const [availableProducts, setAvailableProducts] = useState([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
-  
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -57,20 +59,22 @@ const OrderViewUpdateUI = () => {
     try {
       setIsLoading(true);
       setError(null);
-      
+
       // Build query parameters
       const params = new URLSearchParams({
         page: currentPage.toString(),
         limit: ordersPerPage.toString(),
+        userId: user._id,
       });
-      
+
       if (searchTerm) params.append('search', searchTerm);
-      if (statusFilter && statusFilter !== 'All') params.append('status', statusFilter);
+      if (statusFilter && statusFilter !== 'All')
+        params.append('status', statusFilter);
       if (startDate) params.append('startDate', startDate);
       if (endDate) params.append('endDate', endDate);
 
       const response = await fetch(
-        `http://localhost:5000/api/orders/?${params.toString()}`,
+        `http://localhost:6001/orders/?${params.toString()}`,
         {
           method: 'GET',
           headers: {
@@ -85,7 +89,7 @@ const OrderViewUpdateUI = () => {
 
       const data = await response.json();
       setOrders(data.orders || []);
-      
+
       // Update pagination info
       if (data.pagination) {
         setTotalPages(data.pagination.totalPages);
@@ -147,7 +151,7 @@ const OrderViewUpdateUI = () => {
   const fetchAvailableProducts = async () => {
     try {
       setIsLoadingProducts(true);
-      const response = await fetch('http://localhost:5000/api/products/getAll');
+      const response = await fetch('http://localhost:6001/products/getAll');
       if (response.ok) {
         const data = await response.json();
         setAvailableProducts(data.products || []);
@@ -166,47 +170,57 @@ const OrderViewUpdateUI = () => {
 
       // Update order status
       const statusResponse = await fetch(
-        `http://localhost:5000/api/orders/${editingOrder._id}/status`,
+        `http://localhost:6001/orders/${editingOrder._id}/status`,
         {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ status: editingOrder.status }),
+          body: JSON.stringify({
+            status: editingOrder.status,
+            userId: user._id,
+          }),
         }
       );
 
       if (!statusResponse.ok) {
         const errorData = await statusResponse.json();
-        throw new Error(errorData.ErrorMessage || 'Failed to update order status');
+        throw new Error(
+          errorData.ErrorMessage || 'Failed to update order status'
+        );
       }
 
       // Update payment status
       const paymentResponse = await fetch(
-        `http://localhost:5000/api/orders/${editingOrder._id}/payment-status`,
+        `http://localhost:6001/orders/${editingOrder._id}/payment-status`,
         {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ paymentStatus: editingOrder.paymentStatus }),
+          body: JSON.stringify({
+            paymentStatus: editingOrder.paymentStatus,
+            userId: user._id,
+          }),
         }
       );
 
       if (!paymentResponse.ok) {
         const errorData = await paymentResponse.json();
-        throw new Error(errorData.ErrorMessage || 'Failed to update payment status');
+        throw new Error(
+          errorData.ErrorMessage || 'Failed to update payment status'
+        );
       }
 
       const data = await paymentResponse.json();
-      
+
       // Update local state with the updated order
       setOrders(
         orders.map((order) =>
           order._id === editingOrder._id ? data.order : order
         )
       );
-      
+
       setEditingOrder(null);
       setToast({
         message: 'Order updated successfully!',
@@ -228,13 +242,16 @@ const OrderViewUpdateUI = () => {
     const updatedItems = [...editingOrder.items];
     const item = updatedItems[index];
     const quantity = parseInt(newQuantity) || 0;
-    
+
     if (quantity > 0) {
       item.quantity = quantity;
       item.subtotal = item.price * quantity;
-      
+
       // Recalculate total
-      const newTotal = updatedItems.reduce((sum, item) => sum + item.subtotal, 0);
+      const newTotal = updatedItems.reduce(
+        (sum, item) => sum + item.subtotal,
+        0
+      );
       setEditingOrder({
         ...editingOrder,
         items: updatedItems,
@@ -247,7 +264,7 @@ const OrderViewUpdateUI = () => {
   const handleRemoveItem = (index) => {
     const updatedItems = editingOrder.items.filter((_, i) => i !== index);
     const newTotal = updatedItems.reduce((sum, item) => sum + item.subtotal, 0);
-    
+
     setEditingOrder({
       ...editingOrder,
       items: updatedItems,
@@ -257,7 +274,7 @@ const OrderViewUpdateUI = () => {
 
   // Add new item to order
   const handleAddItem = (productId) => {
-    const product = availableProducts.find(p => p._id === productId);
+    const product = availableProducts.find((p) => p._id === productId);
     if (!product) return;
 
     const newItem = {
@@ -297,6 +314,7 @@ const OrderViewUpdateUI = () => {
     setStartDate('');
     setEndDate('');
     setCurrentPage(1);
+  };
 
   const handleInputChange = (field, value) => {
     setEditingOrder({ ...editingOrder, [field]: value });
@@ -392,13 +410,18 @@ const OrderViewUpdateUI = () => {
                   <input
                     type='date'
                     value={endDate}
-                    onChange={(e) => handleDateFilter(startDate, e.target.value)}
+                    onChange={(e) =>
+                      handleDateFilter(startDate, e.target.value)
+                    }
                     className='px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm'
                     disabled={isLoading}
                   />
                 </div>
                 <div className='flex gap-2 ml-auto'>
-                  {(searchTerm || statusFilter !== 'All' || startDate || endDate) && (
+                  {(searchTerm ||
+                    statusFilter !== 'All' ||
+                    startDate ||
+                    endDate) && (
                     <button
                       onClick={clearFilters}
                       className='btn-outline px-4 py-2 text-sm'
@@ -413,7 +436,9 @@ const OrderViewUpdateUI = () => {
                     className='btn-primary flex items-center gap-2 px-4 py-2'
                     title='Refresh orders'
                   >
-                    <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+                    <RefreshCw
+                      className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`}
+                    />
                     Refresh
                   </button>
                 </div>
@@ -423,7 +448,10 @@ const OrderViewUpdateUI = () => {
               {!isLoading && (
                 <div className='text-sm text-gray-600 pt-2 border-t border-gray-200'>
                   Showing {orders.length} of {totalOrders} orders
-                  {(searchTerm || statusFilter !== 'All' || startDate || endDate) && (
+                  {(searchTerm ||
+                    statusFilter !== 'All' ||
+                    startDate ||
+                    endDate) && (
                     <span className='text-blue-600 ml-1'>(filtered)</span>
                   )}
                 </div>
@@ -458,122 +486,122 @@ const OrderViewUpdateUI = () => {
             <>
               <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
                 {orders.map((order) => (
-                <div
-                  key={order._id}
-                  className='bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow'
-                >
-                  {/* Order Header */}
-                  <div className='border-b border-gray-200 p-6'>
-                    <div className='flex items-start justify-between mb-4'>
-                      <div>
-                        <h3 className='text-lg font-bold text-gray-900'>
-                          Order #{order._id?.slice(-8).toUpperCase()}
-                        </h3>
-                        <p className='text-sm text-gray-600'>
-                          {formatDate(order.createdAt)}
-                        </p>
-                      </div>
-                      <div
-                        className={`flex items-center gap-2 px-3 py-1 rounded-full border ${getStatusColor(
-                          order.status
-                        )}`}
-                      >
-                        {getStatusIcon(order.status)}
-                        <span className='text-sm font-medium capitalize'>
-                          {order.status}
-                        </span>
-                      </div>
-                    </div>
-                    <div className='space-y-2'>
-                      <p className='text-gray-800 font-semibold'>
-                        {order.customerName}
-                      </p>
-                      <p className='text-sm text-gray-600'>{order.email}</p>
-                      <p className='text-sm text-gray-600'>
-                        {order.phoneNumber}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Order Details */}
-                  <div className='p-6 space-y-3'>
-                    <div className='flex justify-between text-sm'>
-                      <span className='text-gray-600'>Items:</span>
-                      <span className='font-medium text-gray-900'>
-                        {getTotalItems(order.items)}
-                      </span>
-                    </div>
-                    <div className='flex justify-between text-sm'>
-                      <span className='text-gray-600'>Total Amount:</span>
-                      <span className='font-bold text-gray-900 text-lg'>
-                        ${order.totalAmount?.toFixed(2) || '0.00'}
-                      </span>
-                    </div>
-                    <div className='flex justify-between text-sm'>
-                      <span className='text-gray-600'>Payment Method:</span>
-                      <span className='font-medium text-gray-900 capitalize'>
-                        {order.paymentMethod?.replace('_', ' ') || 'N/A'}
-                      </span>
-                    </div>
-                    <div className='flex justify-between text-sm'>
-                      <span className='text-gray-600'>Payment Status:</span>
-                      <span
-                        className={`font-medium capitalize ${
-                          order.paymentStatus === 'paid'
-                            ? 'text-green-600'
-                            : order.paymentStatus === 'failed'
-                            ? 'text-red-600'
-                            : 'text-yellow-600'
-                        }`}
-                      >
-                        {order.paymentStatus || 'pending'}
-                      </span>
-                    </div>
-                    <div className='pt-2'>
-                      <p className='text-sm text-gray-600 mb-1'>
-                        Shipping Address:
-                      </p>
-                      <p className='text-sm text-gray-800'>
-                        {order.address}, {order.city}, {order.state}{' '}
-                        {order.zipCode}, {order.country}
-                      </p>
-                    </div>
-                    {order.items && order.items.length > 0 && (
-                      <div className='pt-2 border-t border-gray-100'>
-                        <p className='text-sm text-gray-600 mb-2'>
-                          Order Items:
-                        </p>
-                        <div className='space-y-1'>
-                          {order.items.map((item, index) => (
-                            <div
-                              key={index}
-                              className='flex justify-between text-sm'
-                            >
-                              <span className='text-gray-700'>
-                                {item.productName} x {item.quantity}
-                              </span>
-                              <span className='text-gray-900 font-medium'>
-                                ${item.subtotal?.toFixed(2)}
-                              </span>
-                            </div>
-                          ))}
+                  <div
+                    key={order._id}
+                    className='bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow'
+                  >
+                    {/* Order Header */}
+                    <div className='border-b border-gray-200 p-6'>
+                      <div className='flex items-start justify-between mb-4'>
+                        <div>
+                          <h3 className='text-lg font-bold text-gray-900'>
+                            Order #{order._id?.slice(-8).toUpperCase()}
+                          </h3>
+                          <p className='text-sm text-gray-600'>
+                            {formatDate(order.createdAt)}
+                          </p>
+                        </div>
+                        <div
+                          className={`flex items-center gap-2 px-3 py-1 rounded-full border ${getStatusColor(
+                            order.status
+                          )}`}
+                        >
+                          {getStatusIcon(order.status)}
+                          <span className='text-sm font-medium capitalize'>
+                            {order.status}
+                          </span>
                         </div>
                       </div>
-                    )}
-                  </div>
+                      <div className='space-y-2'>
+                        <p className='text-gray-800 font-semibold'>
+                          {order.customerName}
+                        </p>
+                        <p className='text-sm text-gray-600'>{order.email}</p>
+                        <p className='text-sm text-gray-600'>
+                          {order.phoneNumber}
+                        </p>
+                      </div>
+                    </div>
 
-                  {/* Action Button */}
-                  <div className='border-t border-gray-200 p-4'>
-                    <button
-                      onClick={() => handleEdit(order)}
-                      className='btn-primary btn-full flex items-center justify-center gap-2'
-                    >
-                      <Edit className='w-4 h-4' />
-                      Update Order
-                    </button>
+                    {/* Order Details */}
+                    <div className='p-6 space-y-3'>
+                      <div className='flex justify-between text-sm'>
+                        <span className='text-gray-600'>Items:</span>
+                        <span className='font-medium text-gray-900'>
+                          {getTotalItems(order.items)}
+                        </span>
+                      </div>
+                      <div className='flex justify-between text-sm'>
+                        <span className='text-gray-600'>Total Amount:</span>
+                        <span className='font-bold text-gray-900 text-lg'>
+                          ${order.totalAmount?.toFixed(2) || '0.00'}
+                        </span>
+                      </div>
+                      <div className='flex justify-between text-sm'>
+                        <span className='text-gray-600'>Payment Method:</span>
+                        <span className='font-medium text-gray-900 capitalize'>
+                          {order.paymentMethod?.replace('_', ' ') || 'N/A'}
+                        </span>
+                      </div>
+                      <div className='flex justify-between text-sm'>
+                        <span className='text-gray-600'>Payment Status:</span>
+                        <span
+                          className={`font-medium capitalize ${
+                            order.paymentStatus === 'paid'
+                              ? 'text-green-600'
+                              : order.paymentStatus === 'failed'
+                              ? 'text-red-600'
+                              : 'text-yellow-600'
+                          }`}
+                        >
+                          {order.paymentStatus || 'pending'}
+                        </span>
+                      </div>
+                      <div className='pt-2'>
+                        <p className='text-sm text-gray-600 mb-1'>
+                          Shipping Address:
+                        </p>
+                        <p className='text-sm text-gray-800'>
+                          {order.address}, {order.city}, {order.state}{' '}
+                          {order.zipCode}, {order.country}
+                        </p>
+                      </div>
+                      {order.items && order.items.length > 0 && (
+                        <div className='pt-2 border-t border-gray-100'>
+                          <p className='text-sm text-gray-600 mb-2'>
+                            Order Items:
+                          </p>
+                          <div className='space-y-1'>
+                            {order.items.map((item, index) => (
+                              <div
+                                key={index}
+                                className='flex justify-between text-sm'
+                              >
+                                <span className='text-gray-700'>
+                                  {item.productName} x {item.quantity}
+                                </span>
+                                <span className='text-gray-900 font-medium'>
+                                  ${item.subtotal?.toFixed(2)}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Action Button */}
+                    <div className='border-t border-gray-200 p-4'>
+                      <button
+                        onClick={() => handleEdit(order)}
+                        className='btn-primary btn-full flex items-center justify-center gap-2'
+                      >
+                        <Edit className='w-4 h-4' />
+                        Update Order
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
               </div>
 
               {/* Pagination Controls */}
@@ -584,14 +612,16 @@ const OrderViewUpdateUI = () => {
                   </div>
                   <div className='flex items-center gap-2'>
                     <button
-                      onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                      onClick={() =>
+                        setCurrentPage((prev) => Math.max(1, prev - 1))
+                      }
                       disabled={currentPage === 1 || isLoading}
                       className='btn-outline px-3 py-2 flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed'
                     >
                       <ChevronLeft className='w-4 h-4' />
                       Previous
                     </button>
-                    
+
                     {/* Page Numbers */}
                     <div className='flex gap-1'>
                       {[...Array(totalPages)].map((_, idx) => {
@@ -620,14 +650,20 @@ const OrderViewUpdateUI = () => {
                           pageNum === currentPage - 2 ||
                           pageNum === currentPage + 2
                         ) {
-                          return <span key={pageNum} className='px-2 text-gray-400'>...</span>;
+                          return (
+                            <span key={pageNum} className='px-2 text-gray-400'>
+                              ...
+                            </span>
+                          );
                         }
                         return null;
                       })}
                     </div>
 
                     <button
-                      onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                      onClick={() =>
+                        setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+                      }
                       disabled={currentPage === totalPages || isLoading}
                       className='btn-outline px-3 py-2 flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed'
                     >
@@ -748,7 +784,6 @@ const OrderViewUpdateUI = () => {
                         {editingOrder.paymentMethod?.replace('_', ' ')}
                       </p>
                     </div>
-
                   </div>
 
                   {/* Payment Status - Editable */}
@@ -781,7 +816,7 @@ const OrderViewUpdateUI = () => {
                         Total: ${editingOrder.totalAmount?.toFixed(2)}
                       </div>
                     </div>
-                    
+
                     {editingOrder.items && editingOrder.items.length > 0 && (
                       <div className='border border-gray-200 rounded-lg overflow-hidden mb-4'>
                         <table className='w-full text-sm'>
@@ -819,7 +854,10 @@ const OrderViewUpdateUI = () => {
                                     min='1'
                                     value={item.quantity}
                                     onChange={(e) =>
-                                      handleItemQuantityChange(index, e.target.value)
+                                      handleItemQuantityChange(
+                                        index,
+                                        e.target.value
+                                      )
                                     }
                                     className='w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                                     disabled={isUpdating}
@@ -835,7 +873,10 @@ const OrderViewUpdateUI = () => {
                                   <button
                                     onClick={() => handleRemoveItem(index)}
                                     className='text-red-600 hover:text-red-800 p-1'
-                                    disabled={isUpdating || editingOrder.items.length === 1}
+                                    disabled={
+                                      isUpdating ||
+                                      editingOrder.items.length === 1
+                                    }
                                     title='Remove item'
                                   >
                                     <X className='w-4 h-4' />
@@ -861,7 +902,9 @@ const OrderViewUpdateUI = () => {
                         disabled={isUpdating || isLoadingProducts}
                       >
                         <option value=''>
-                          {isLoadingProducts ? 'Loading products...' : 'Add product to order...'}
+                          {isLoadingProducts
+                            ? 'Loading products...'
+                            : 'Add product to order...'}
                         </option>
                         {availableProducts
                           .filter(
@@ -872,7 +915,9 @@ const OrderViewUpdateUI = () => {
                           )
                           .map((product) => (
                             <option key={product._id} value={product._id}>
-                              {product.productName} - ${product.price?.toFixed(2)} (Stock: {product.quantity})
+                              {product.productName} - $
+                              {product.price?.toFixed(2)} (Stock:{' '}
+                              {product.quantity})
                             </option>
                           ))}
                       </select>
