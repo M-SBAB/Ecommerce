@@ -12,6 +12,7 @@ import {
   ShoppingBag,
   FileText,
   ShoppingCart,
+  List,
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -22,6 +23,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   const adminLinks = [
     { path: '/Dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/Dashboard/AddProducts', label: 'Add Product', icon: PackagePlus },
+    { path: '/Dashboard/list', label: 'List Products', icon: List },
     {
       path: '/Dashboard/StockManagement',
       label: 'Stock Management',

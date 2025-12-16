@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AlertCircle, Check, Package, Upload, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../../context/AuthContext';
 
 export default function AddProductForm() {
   const {
@@ -9,23 +10,35 @@ export default function AddProductForm() {
     reset,
     formState: { errors },
   } = useForm();
+  const { user } = useAuth();
 
   const addProduct = async (data) => {
-    const res = await fetch('http://localhost:5000/products/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        productName: data.addProductName,
-        category: data.addProductCategory,
-        price: data.addProductPrice,
-        quantity: data.addProductQuantity,
-        description: data.addProductDescription,
-      }),
-    });
-    const response = await res.json();
-    console.log(response);
+    try {
+      const res = await fetch('http://localhost:5000/products/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          productName: data.addProductName,
+          category: data.addProductCategory,
+          price: data.addProductPrice,
+          quantity: data.addProductQuantity,
+          description: data.addProductDescription,
+          userId: user._id,
+        }),
+      });
+      const response = await res.json();
+      if (response.message) {
+        alert(response.message);
+        reset(); // Clear the form on success
+      } else if (response.ErrorMessage) {
+        alert(response.ErrorMessage);
+      }
+    } catch (error) {
+      console.error('Error adding product:', error);
+      alert('Failed to add product');
+    }
   };
 
   return (
