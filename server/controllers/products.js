@@ -95,39 +95,65 @@ export const updateProduct = async (req, res) => {
       { new: true }
     );
 
-    res
-      .status(200)
-      .json({
-        message: 'Product updated successfully!',
-        product: updatedProduct,
-      });
+    res.status(200).json({
+      message: 'Product updated successfully!',
+      product: updatedProduct,
+    });
   } catch (error) {
     res.status(500).json({ ErrorMessage: error.message });
   }
 };
 
-// Update product stock (add to existing stock)
+// Update product stock with operation types (add/remove/set)
 export const updateStock = async (req, res) => {
   try {
     const { productID } = req.params;
-    const { stock } = req.body;
+    const { stock, operation } = req.body;
     const product = await Product.findOne({ _id: productID });
 
     if (!product)
       return res.status(404).json({ ErrorMessage: 'Product not found' });
 
-    const quantity = product.quantity;
+    const currentQuantity = product.quantity;
+    let updatedQuantity;
 
-    const updatedQuantity = quantity + Number(stock);
+    // Handle different operation types
+    switch (operation) {
+      case 'add':
+        updatedQuantity = currentQuantity + Number(stock);
+        break;
+      case 'remove':
+        updatedQuantity = currentQuantity - Number(stock);
+        if (updatedQuantity < 0) {
+          return res.status(400).json({
+            ErrorMessage: `Cannot remove ${stock} units. Only ${currentQuantity} units available.`,
+          });
+        }
+        break;
+      case 'set':
+        updatedQuantity = Number(stock);
+        break;
+      default:
+        return res.status(400).json({
+          ErrorMessage: 'Invalid operation. Use "add", "remove", or "set".',
+        });
+    }
+
     await Product.findByIdAndUpdate(
       productID,
       { quantity: updatedQuantity },
       { new: true }
     );
 
-    res.status(201).json({ message: 'Stock updated!' });
-
-    // res.json({productID, stock})
+    res.status(200).json({
+      message: `Stock ${
+        operation === 'add'
+          ? 'added'
+          : operation === 'remove'
+          ? 'removed'
+          : 'set'
+      } successfully! New quantity: ${updatedQuantity}`,
+    });
   } catch (error) {
     res.status(500).json({ ErrorMessage: error.message });
   }
