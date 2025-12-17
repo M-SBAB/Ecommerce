@@ -1,5 +1,35 @@
 import React from 'react';
-import { componentStyles, theme, cn, orderStatusColors } from '../theme';
+
+// Utility function to combine class names
+const cn = (...classes) => classes.filter(Boolean).join(' ');
+
+// Order status colors mapping
+const orderStatusColors = {
+  pending: {
+    bg: 'bg-warning-100',
+    text: 'text-warning-800',
+  },
+  confirmed: {
+    bg: 'bg-primary-100',
+    text: 'text-primary-800',
+  },
+  processing: {
+    bg: 'bg-primary-100',
+    text: 'text-primary-800',
+  },
+  shipped: {
+    bg: 'bg-secondary-100',
+    text: 'text-secondary-800',
+  },
+  delivered: {
+    bg: 'bg-success-100',
+    text: 'text-success-800',
+  },
+  cancelled: {
+    bg: 'bg-error-100',
+    text: 'text-error-800',
+  },
+};
 
 // Example component showcasing theme usage
 const ThemeShowcase = () => {

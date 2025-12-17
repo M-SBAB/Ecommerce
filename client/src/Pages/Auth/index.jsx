@@ -105,7 +105,7 @@ const Auth = () => {
   };
 
   return (
-    <div className='min-h-screen flex justify-center items-center bg-gradient-to-br from-primary-500 to-secondary-500 p-4'>
+    <div className='min-h-screen flex justify-center items-center bg-linear-to-br from-primary-500 to-secondary-500 p-4'>
       {form === 'login' && (
         <form
           onSubmit={handleSubmit(loginUser)}
@@ -126,7 +126,7 @@ const Auth = () => {
             {/* Error Message */}
             {error && (
               <div className='bg-error-50 border border-error-200 text-error-800 px-4 py-3 rounded-lg flex items-center gap-2'>
-                <AlertCircle className='w-5 h-5 flex-shrink-0' />
+                <AlertCircle className='w-5 h-5 shrink-0' />
                 <span className='text-sm'>{error}</span>
               </div>
             )}
@@ -134,14 +134,14 @@ const Auth = () => {
             {/* Success Message */}
             {success && (
               <div className='bg-success-50 border border-success-200 text-success-800 px-4 py-3 rounded-lg flex items-center gap-2'>
-                <CheckCircle className='w-5 h-5 flex-shrink-0' />
+                <CheckCircle className='w-5 h-5 shrink-0' />
                 <span className='text-sm'>{success}</span>
               </div>
             )}
 
             {/* Form Fields */}
-            <div className='space-y-4'>
-              <div>
+            <div className='space-y-4 flex flex-col gap-4 mb-20'>
+              <div className=''>
                 <label className='block text-sm font-medium text-gray-700 mb-2'>
                   <User className='w-4 h-4 inline mr-2 mb-1' />
                   Username
@@ -188,7 +188,7 @@ const Auth = () => {
             <button
               type='submit'
               disabled={loading}
-              className='btn-primary w-full text-lg py-3 flex items-center justify-center gap-2'
+              className='btn-primary w-full text-lg py-3 flex items-center justify-center gap-2 mt-20 mb-20'
             >
               {loading ? (
                 <>
@@ -242,7 +242,7 @@ const Auth = () => {
             {/* Error Message */}
             {error && (
               <div className='bg-error-50 border border-error-200 text-error-800 px-4 py-3 rounded-lg flex items-center gap-2'>
-                <AlertCircle className='w-5 h-5 flex-shrink-0' />
+                <AlertCircle className='w-5 h-5 shrink-0' />
                 <span className='text-sm'>{error}</span>
               </div>
             )}
@@ -250,7 +250,7 @@ const Auth = () => {
             {/* Success Message */}
             {success && (
               <div className='bg-success-50 border border-success-200 text-success-800 px-4 py-3 rounded-lg flex items-center gap-2'>
-                <CheckCircle className='w-5 h-5 flex-shrink-0' />
+                <CheckCircle className='w-5 h-5 shrink-0' />
                 <span className='text-sm'>{success}</span>
               </div>
             )}
