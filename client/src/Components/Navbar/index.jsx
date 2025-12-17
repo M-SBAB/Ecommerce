@@ -1,11 +1,15 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { User, LogOut, Menu } from 'lucide-react';
+import { useCart } from '../../context/CartContext';
+import { User, LogOut, Menu, ShoppingCart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ onMenuClick }) => {
-  const { user, logout, isAdmin } = useAuth();
+  const { user, logout, isAdmin, isUser } = useAuth();
+  const { getCartItemCount } = useCart();
   const navigate = useNavigate();
+
+  const cartItemCount = getCartItemCount();
 
   const handleLogout = () => {
     logout();
@@ -43,6 +47,22 @@ const Navbar = ({ onMenuClick }) => {
                 </p>
               </div>
             </div>
+
+            {/* Cart Badge - Only for Users */}
+            {isUser() && (
+              <button
+                onClick={() => navigate('/Dashboard/AddToCart')}
+                className='relative p-2 sm:p-3 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md'
+                aria-label='Shopping cart'
+              >
+                <ShoppingCart className='w-5 h-5 sm:w-6 sm:h-6' />
+                {cartItemCount > 0 && (
+                  <span className='absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse'>
+                    {cartItemCount > 99 ? '99+' : cartItemCount}
+                  </span>
+                )}
+              </button>
+            )}
 
             <button
               onClick={handleLogout}

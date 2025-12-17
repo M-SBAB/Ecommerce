@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Search, ShoppingCart, Filter, X, Package } from 'lucide-react';
+import { useCart } from '../../context/CartContext';
+import Toast from '../../Components/Toast';
 
 const Products = () => {
+  const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
   const [showFilters, setShowFilters] = useState(false);
+  const [toast, setToast] = useState(null);
 
   const categories = [
     { value: '', label: 'All Categories' },
@@ -59,8 +63,18 @@ const Products = () => {
   }, [searchTerm, selectedCategory, priceRange]);
 
   const handleAddToCart = (product) => {
-    // TODO: Implement add to cart functionality
-    alert(`Added ${product.productName} to cart!`);
+    const success = addToCart(product, 1);
+    if (success) {
+      setToast({
+        message: `${product.productName} added to cart!`,
+        type: 'success',
+      });
+    } else {
+      setToast({
+        message: 'Failed to add product to cart',
+        type: 'error',
+      });
+    }
   };
 
   const clearFilters = () => {
@@ -90,6 +104,18 @@ const Products = () => {
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50'>
+      {/* Toast Notification */}
+      {toast && (
+        <div className='fixed top-4 right-4 z-50 min-w-[300px]'>
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            duration={3000}
+            onClose={() => setToast(null)}
+          />
+        </div>
+      )}
+
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8'>
         {/* Header */}
         <div className='mb-8'>
