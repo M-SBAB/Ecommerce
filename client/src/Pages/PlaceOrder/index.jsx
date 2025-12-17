@@ -234,7 +234,7 @@ export default function PlaceOrderForm() {
                       name='fullName'
                       value={formData.fullName}
                       onChange={handleChange}
-                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                      className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                       required
                     />
                   </div>
@@ -247,7 +247,7 @@ export default function PlaceOrderForm() {
                       name='email'
                       value={formData.email}
                       onChange={handleChange}
-                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                      className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                       required
                     />
                   </div>
@@ -260,7 +260,7 @@ export default function PlaceOrderForm() {
                       name='phone'
                       value={formData.phone}
                       onChange={handleChange}
-                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                      className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                       required
                     />
                   </div>
@@ -285,7 +285,7 @@ export default function PlaceOrderForm() {
                       name='address'
                       value={formData.address}
                       onChange={handleChange}
-                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                      className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                       required
                     />
                   </div>
@@ -299,7 +299,7 @@ export default function PlaceOrderForm() {
                         name='city'
                         value={formData.city}
                         onChange={handleChange}
-                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                        className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                         required
                       />
                     </div>
@@ -312,7 +312,7 @@ export default function PlaceOrderForm() {
                         name='state'
                         value={formData.state}
                         onChange={handleChange}
-                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                        className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                         required
                       />
                     </div>
@@ -325,7 +325,7 @@ export default function PlaceOrderForm() {
                         name='zipCode'
                         value={formData.zipCode}
                         onChange={handleChange}
-                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                        className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                         required
                       />
                     </div>
@@ -339,7 +339,7 @@ export default function PlaceOrderForm() {
                       name='country'
                       value={formData.country}
                       onChange={handleChange}
-                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                      className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                       required
                     />
                   </div>
@@ -354,7 +354,7 @@ export default function PlaceOrderForm() {
                     Order Summary
                   </h2>
                 </div>
-                <div className='bg-gray-50 rounded-lg p-4 space-y-3'>
+                <div className='bg-gray-50 rounded p-4 space-y-3'>
                   <div className='space-y-2'>
                     {cartItems.map((item) => {
                       const hasStockIssue =
@@ -429,7 +429,7 @@ export default function PlaceOrderForm() {
                     name='paymentMethod'
                     value={formData.paymentMethod}
                     onChange={handleChange}
-                    className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                    className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                     required
                   >
                     <option value='cash_on_delivery'>Cash on Delivery</option>
@@ -452,7 +452,7 @@ export default function PlaceOrderForm() {
                         value={formData.cardNumber}
                         onChange={handleChange}
                         placeholder='1234 5678 9012 3456'
-                        className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                        className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                       />
                     </div>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -466,7 +466,7 @@ export default function PlaceOrderForm() {
                           value={formData.expiryDate}
                           onChange={handleChange}
                           placeholder='MM/YY'
-                          className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                          className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                         />
                       </div>
                       <div>
@@ -479,7 +479,7 @@ export default function PlaceOrderForm() {
                           value={formData.cvv}
                           onChange={handleChange}
                           placeholder='123'
-                          className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
+                          className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition'
                         />
                       </div>
                     </div>
@@ -497,7 +497,7 @@ export default function PlaceOrderForm() {
                   value={formData.notes}
                   onChange={handleChange}
                   rows='4'
-                  className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-none'
+                  className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-none'
                   placeholder='Any special instructions or comments...'
                 />
               </div>
@@ -507,14 +507,14 @@ export default function PlaceOrderForm() {
                 <button
                   type='submit'
                   disabled={isSubmitting || isCartEmpty()}
-                  className='btn-primary btn-lg flex-1 disabled:opacity-50 disabled:cursor-not-allowed'
+                  className='btn-primary btn-lg flex-1 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2'
                 >
                   {isSubmitting ? 'Placing Order...' : 'Place Order'}
                 </button>
                 <button
                   type='button'
                   onClick={() => navigate('/Dashboard/AddToCart')}
-                  className='btn-outline btn-lg'
+                  className='btn-outline btn-lg px-4 py-2'
                   disabled={isSubmitting}
                 >
                   Back to Cart

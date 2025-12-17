@@ -59,7 +59,7 @@ const TopProductsList = ({ products, limit = 5, onViewProduct }) => {
 
   if (!displayProducts.length) {
     return (
-      <div className='bg-white rounded-lg shadow-md p-6'>
+      <div className='bg-white rounded shadow-md p-6'>
         <div className='flex items-center gap-2 mb-4'>
           <Trophy className='w-6 h-6 text-yellow-500' />
           <h3 className='text-xl font-bold text-gray-800'>
@@ -75,7 +75,7 @@ const TopProductsList = ({ products, limit = 5, onViewProduct }) => {
   }
 
   return (
-    <div className='bg-white rounded-lg shadow-md overflow-hidden'>
+    <div className='bg-white rounded shadow-md overflow-hidden'>
       <div className='p-6 border-b border-gray-200'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
@@ -99,7 +99,7 @@ const TopProductsList = ({ products, limit = 5, onViewProduct }) => {
               <div className='flex items-start gap-4'>
                 {/* Rank badge */}
                 <div
-                  className={`flex-shrink-0 w-10 h-10 ${rankBadge.bg} rounded-lg flex items-center justify-center shadow-md`}
+                  className={`flex-shrink-0 w-10 h-10 ${rankBadge.bg} rounded flex items-center justify-center shadow-md`}
                 >
                   <span className={`text-lg font-bold ${rankBadge.text}`}>
                     {rankBadge.icon}

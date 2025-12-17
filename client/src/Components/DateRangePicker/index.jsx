@@ -42,7 +42,7 @@ const DateRangePicker = ({ startDate, endDate, onDateChange, onClear }) => {
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-2 px-4 py-2 border rounded-lg font-medium transition-colors ${
+        className={`flex items-center gap-2 px-4 py-2 border rounded font-medium transition-colors ${
           hasDateRange
             ? 'bg-blue-50 border-blue-300 text-blue-700'
             : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
@@ -79,7 +79,7 @@ const DateRangePicker = ({ startDate, endDate, onDateChange, onClear }) => {
           />
 
           {/* Panel */}
-          <div className='absolute top-full left-0 mt-2 z-20 bg-white border border-gray-200 rounded-lg shadow-xl p-4 min-w-[300px]'>
+          <div className='absolute top-full left-0 mt-2 z-20 bg-white border border-gray-200 rounded shadow-xl p-4 min-w-[300px]'>
             <h4 className='text-sm font-semibold text-gray-900 mb-3'>
               Select Date Range
             </h4>
@@ -95,7 +95,7 @@ const DateRangePicker = ({ startDate, endDate, onDateChange, onClear }) => {
                   value={formatDateForInput(startDate)}
                   onChange={handleStartDateChange}
                   max={formatDateForInput(endDate || new Date())}
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none'
+                  className='w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none'
                 />
               </div>
 
@@ -110,7 +110,7 @@ const DateRangePicker = ({ startDate, endDate, onDateChange, onClear }) => {
                   onChange={handleEndDateChange}
                   min={formatDateForInput(startDate)}
                   max={formatDateForInput(new Date())}
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none'
+                  className='w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none'
                 />
               </div>
             </div>
@@ -184,13 +184,13 @@ const DateRangePicker = ({ startDate, endDate, onDateChange, onClear }) => {
             <div className='mt-4 flex gap-2'>
               <button
                 onClick={handleClear}
-                className='flex-1 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors'
+                className='flex-1 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded transition-colors'
               >
                 Clear
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className='flex-1 px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors'
+                className='flex-1 px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded transition-colors'
               >
                 Apply
               </button>

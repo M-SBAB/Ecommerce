@@ -39,7 +39,7 @@ const LowStockAlert = ({ products, threshold = 10, onViewProduct }) => {
 
   if (!displayProducts.length) {
     return (
-      <div className='bg-white rounded-lg shadow-md p-6'>
+      <div className='bg-white rounded shadow-md p-6'>
         <div className='flex items-center justify-between mb-4'>
           <h3 className='text-xl font-bold text-gray-800'>Stock Alerts</h3>
           <div className='flex items-center gap-2 text-green-600'>
@@ -57,7 +57,7 @@ const LowStockAlert = ({ products, threshold = 10, onViewProduct }) => {
   }
 
   return (
-    <div className='bg-white rounded-lg shadow-md overflow-hidden'>
+    <div className='bg-white rounded shadow-md overflow-hidden'>
       <div className='p-6 border-b border-gray-200'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
@@ -137,7 +137,7 @@ const LowStockAlert = ({ products, threshold = 10, onViewProduct }) => {
                 {/* Action button */}
                 <button
                   onClick={handleManageStock}
-                  className='flex-shrink-0 px-3 py-1.5 text-xs font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-md transition-colors border border-blue-200'
+                  className='flex-shrink-0 px-3 py-1.5 text-xs font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded transition-colors border border-blue-200'
                 >
                   Restock
                 </button>
@@ -172,7 +172,7 @@ const LowStockAlert = ({ products, threshold = 10, onViewProduct }) => {
       <div className='px-6 py-4 bg-gray-50 border-t border-gray-200'>
         <button
           onClick={handleManageStock}
-          className='w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors'
+          className='w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded transition-colors'
         >
           <Package className='w-4 h-4' />
           Manage Stock

@@ -61,13 +61,13 @@ const ThemeShowcase = () => {
       <section className='mb-12'>
         <h2 className='text-3xl font-bold text-gray-900 mb-6'>Buttons</h2>
         <div className='flex flex-wrap gap-4'>
-          <button className='btn-primary'>Primary Button</button>
-          <button className='btn-secondary'>Secondary Button</button>
-          <button className='btn-success'>Success Button</button>
-          <button className='btn-danger'>Danger Button</button>
-          <button className='btn-outline'>Outline Button</button>
-          <button className='btn-ghost'>Ghost Button</button>
-          <button className='btn-primary' disabled>
+          <button className='btn-primary px-4 py-2'>Primary Button</button>
+          <button className='btn-secondary px-4 py-2'>Secondary Button</button>
+          <button className='btn-success px-4 py-2'>Success Button</button>
+          <button className='btn-danger px-4 py-2'>Danger Button</button>
+          <button className='btn-outline px-4 py-2'>Outline Button</button>
+          <button className='btn-ghost px-4 py-2'>Ghost Button</button>
+          <button className='btn-primary px-4 py-2' disabled>
             Disabled
           </button>
         </div>
@@ -78,7 +78,7 @@ const ThemeShowcase = () => {
         <h2 className='text-3xl font-bold text-gray-900 mb-6'>Cards</h2>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {/* Basic Card */}
-          <div className='card'>
+          <div className='card p-6'>
             <h3 className='text-xl font-semibold mb-2'>Basic Card</h3>
             <p className='text-gray-600'>
               A simple card with shadow and padding.
@@ -86,18 +86,18 @@ const ThemeShowcase = () => {
           </div>
 
           {/* Product Card */}
-          <div className='card-product hover-lift'>
-            <div className='w-full h-48 bg-gradient-to-br from-primary-200 to-primary-400 rounded-lg mb-4'></div>
+          <div className='card-product hover-lift p-6'>
+            <div className='w-full h-48 bg-gradient-to-br from-primary-200 to-primary-400 rounded mb-4'></div>
             <h3 className='text-xl font-semibold mb-2'>Product Card</h3>
             <p className='text-gray-600 mb-4'>Product description goes here</p>
             <div className='flex items-center justify-between'>
               <span className='price'>$99.99</span>
-              <span className='badge-success'>In Stock</span>
+              <span className='badge-success px-2.5 py-0.5'>In Stock</span>
             </div>
           </div>
 
           {/* Elevated Card */}
-          <div className='card shadow-xl'>
+          <div className='card shadow-xl p-6'>
             <h3 className='text-xl font-semibold mb-2'>Elevated Card</h3>
             <p className='text-gray-600'>
               A card with extra elevation and shadow.
@@ -110,11 +110,11 @@ const ThemeShowcase = () => {
       <section className='mb-12'>
         <h2 className='text-3xl font-bold text-gray-900 mb-6'>Badges</h2>
         <div className='flex flex-wrap gap-3'>
-          <span className='badge-primary'>Primary</span>
-          <span className='badge-success'>Success</span>
-          <span className='badge-warning'>Warning</span>
-          <span className='badge-error'>Error</span>
-          <span className='badge-gray'>Gray</span>
+          <span className='badge-primary px-2.5 py-0.5'>Primary</span>
+          <span className='badge-success px-2.5 py-0.5'>Success</span>
+          <span className='badge-warning px-2.5 py-0.5'>Warning</span>
+          <span className='badge-error px-2.5 py-0.5'>Error</span>
+          <span className='badge-gray px-2.5 py-0.5'>Gray</span>
         </div>
       </section>
 
@@ -147,7 +147,7 @@ const ThemeShowcase = () => {
             </label>
             <input
               type='email'
-              className='input-base'
+              className='input-base px-4 py-2.5'
               placeholder='you@example.com'
             />
           </div>
@@ -158,7 +158,7 @@ const ThemeShowcase = () => {
             </label>
             <input
               type='text'
-              className='input-error'
+              className='input-error px-4 py-2.5'
               placeholder='This field has an error'
             />
             <p className='text-sm text-error-600 mt-1'>
@@ -170,7 +170,7 @@ const ThemeShowcase = () => {
             <label className='block text-sm font-medium text-gray-700 mb-2'>
               Select Option
             </label>
-            <select className='input-base'>
+            <select className='input-base px-4 py-2.5'>
               <option>Option 1</option>
               <option>Option 2</option>
               <option>Option 3</option>
@@ -182,7 +182,7 @@ const ThemeShowcase = () => {
               Textarea
             </label>
             <textarea
-              className='input-base'
+              className='input-base px-4 py-2.5'
               rows='4'
               placeholder='Enter your message'
             ></textarea>
@@ -236,13 +236,13 @@ const ThemeShowcase = () => {
       <section className='mb-12'>
         <h2 className='text-3xl font-bold text-gray-900 mb-6'>Animations</h2>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-          <div className='card animate-fade-in'>
+          <div className='card animate-fade-in p-6'>
             <p className='text-center font-medium'>Fade In</p>
           </div>
-          <div className='card animate-slide-up'>
+          <div className='card animate-slide-up p-6'>
             <p className='text-center font-medium'>Slide Up</p>
           </div>
-          <div className='card hover-lift'>
+          <div className='card hover-lift p-6'>
             <p className='text-center font-medium'>Hover Lift (hover me)</p>
           </div>
         </div>
@@ -254,7 +254,7 @@ const ThemeShowcase = () => {
 // Color Swatch Component
 const ColorSwatch = ({ label, color }) => (
   <div className='text-center'>
-    <div className={cn('w-full h-24 rounded-lg mb-2 shadow-md', color)}></div>
+    <div className={cn('w-full h-24 rounded mb-2 shadow-md', color)}></div>
     <p className='text-sm font-medium text-gray-700'>{label}</p>
   </div>
 );

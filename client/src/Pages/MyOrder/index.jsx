@@ -179,7 +179,7 @@ export default function OrderManagement() {
 
           {/* Success Message */}
           {successMessage && (
-            <div className='bg-green-50 border border-green-200 rounded-lg p-4 flex items-center'>
+            <div className='bg-green-50 border border-green-200 rounded p-4 flex items-center'>
               <CheckCircle className='w-5 h-5 text-green-600 mr-3' />
               <span className='text-green-800 font-medium'>
                 {successMessage}
@@ -189,7 +189,7 @@ export default function OrderManagement() {
 
           {/* Error Message */}
           {error && (
-            <div className='bg-red-50 border border-red-200 rounded-lg p-4 flex items-center justify-between'>
+            <div className='bg-red-50 border border-red-200 rounded p-4 flex items-center justify-between'>
               <div className='flex items-center'>
                 <AlertCircle className='w-5 h-5 text-red-600 mr-3' />
                 <span className='text-red-800 font-medium'>{error}</span>
@@ -276,7 +276,7 @@ export default function OrderManagement() {
                             {order.items.map((item, idx) => (
                               <div
                                 key={idx}
-                                className='flex items-center justify-between text-sm bg-slate-50 rounded-lg p-3'
+                                className='flex items-center justify-between text-sm bg-slate-50 rounded p-3'
                               >
                                 <div className='flex items-center gap-2'>
                                   <span className='w-1.5 h-1.5 bg-slate-400 rounded-full'></span>
@@ -361,7 +361,7 @@ export default function OrderManagement() {
                           order.status === 'pending') && (
                           <button
                             onClick={() => handleCancelClick(order)}
-                            className='btn-danger flex items-center gap-2'
+                            className='btn-danger flex items-center gap-2 px-4 py-2'
                             disabled={isCancelling}
                           >
                             <X className='w-4 h-4' />
@@ -404,14 +404,14 @@ export default function OrderManagement() {
               <div className='flex gap-3'>
                 <button
                   onClick={() => setShowCancelModal(false)}
-                  className='btn-secondary flex-1'
+                  className='btn-secondary flex-1 px-4 py-2'
                   disabled={isCancelling}
                 >
                   Keep Order
                 </button>
                 <button
                   onClick={confirmCancel}
-                  className='btn-danger flex-1 flex items-center justify-center gap-2'
+                  className='btn-danger flex-1 flex items-center justify-center gap-2 px-4 py-2'
                   disabled={isCancelling}
                 >
                   {isCancelling ? (

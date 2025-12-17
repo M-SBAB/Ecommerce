@@ -45,7 +45,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     if (!hasRequiredRole) {
       return (
         <div className='min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-6'>
-          <div className='max-w-md w-full bg-white rounded-lg shadow-xl p-8 text-center'>
+          <div className='max-w-md w-full bg-white rounded shadow-xl p-8 text-center'>
             <div className='w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4'>
               <ShieldAlert className='w-8 h-8 text-red-600' />
             </div>
@@ -55,7 +55,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
             <p className='text-gray-600 mb-6'>
               You don't have permission to access this page.
             </p>
-            <div className='space-y-2 text-sm text-gray-500 bg-gray-50 rounded-lg p-4'>
+            <div className='space-y-2 text-sm text-gray-500 bg-gray-50 rounded p-4'>
               <p>
                 <span className='font-semibold'>Current Role:</span>{' '}
                 <span className='capitalize'>{user?.role || 'Unknown'}</span>
@@ -67,7 +67,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
             </div>
             <button
               onClick={() => window.history.back()}
-              className='btn-primary mt-6 w-full'
+              className='btn-primary mt-6 w-full px-4 py-2'
             >
               Go Back
             </button>

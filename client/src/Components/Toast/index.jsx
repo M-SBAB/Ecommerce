@@ -59,7 +59,7 @@ const Toast = ({ message, type = 'info', duration = 3000, onClose }) => {
 
   return (
     <div
-      className={`${styles.bg} border ${styles.border} rounded-lg p-4 flex items-center justify-between shadow-lg animate-in slide-in-from-top-5 duration-300`}
+      className={`${styles.bg} border ${styles.border} rounded p-4 flex items-center justify-between shadow-lg animate-in slide-in-from-top-5 duration-300`}
     >
       <div className='flex items-center gap-3'>
         {styles.icon}

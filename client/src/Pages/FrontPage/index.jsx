@@ -132,7 +132,7 @@ const EcommercePage = () => {
 
       {/* Search and Categories */}
       <div className='max-w-7xl mx-auto px-4 py-6'>
-        <div className='bg-white rounded-lg shadow-sm p-6 mb-6'>
+        <div className='bg-white rounded shadow-sm p-6 mb-6'>
           {/* Search Bar */}
           <div className='relative mb-6'>
             <Search className='absolute left-3 top-3 w-5 h-5 text-gray-400' />
@@ -141,7 +141,7 @@ const EcommercePage = () => {
               placeholder='Search products...'
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+              className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
             />
           </div>
 
@@ -168,7 +168,7 @@ const EcommercePage = () => {
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className='bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow'
+              className='bg-white rounded shadow-sm overflow-hidden hover:shadow-lg transition-shadow'
             >
               <div className='relative'>
                 <img
@@ -201,13 +201,13 @@ const EcommercePage = () => {
                 <div className='mt-4 flex gap-2'>
                   <button
                     onClick={() => addToCart(product)}
-                    className='btn-secondary flex-1'
+                    className='btn-secondary flex-1 px-4 py-2'
                   >
                     Add to Cart
                   </button>
                   <button
                     onClick={() => buyNow(product)}
-                    className='btn-primary flex-1'
+                    className='btn-primary flex-1 px-4 py-2'
                   >
                     Buy Now
                   </button>

@@ -146,13 +146,13 @@ export default function ProductList() {
                 placeholder='Search by product name...'
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
+                className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
               />
             </div>
           </div>
 
           {/* Product Table */}
-          <div className='bg-white rounded-lg shadow overflow-hidden'>
+          <div className='bg-white rounded shadow overflow-hidden'>
             {/* Mobile scroll hint */}
             <div className='lg:hidden bg-blue-50 border-b border-blue-100 px-4 py-2 text-sm text-blue-600 flex items-center gap-2'>
               <svg
@@ -207,7 +207,7 @@ export default function ProductList() {
                         <img
                           src='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop'
                           alt='Product'
-                          className='w-12 h-12 rounded-lg object-cover border border-gray-200'
+                          className='w-12 h-12 rounded object-cover border border-gray-200'
                         />
                       </td>
                       <td className='px-6 py-4'>
@@ -241,14 +241,14 @@ export default function ProductList() {
                         <div className='flex gap-2'>
                           <button
                             onClick={() => handleEditClick(product)}
-                            className='text-blue-600 hover:text-blue-900 p-2 hover:bg-blue-50 rounded-lg transition-colors'
+                            className='text-blue-600 hover:text-blue-900 p-2 hover:bg-blue-50 rounded transition-colors'
                             title='Edit product'
                           >
                             <Edit className='w-5 h-5' />
                           </button>
                           <button
                             onClick={() => handleDeleteClick(product._id)}
-                            className='text-red-600 hover:text-red-900 p-2 hover:bg-red-50 rounded-lg transition-colors'
+                            className='text-red-600 hover:text-red-900 p-2 hover:bg-red-50 rounded transition-colors'
                             title='Delete product'
                           >
                             <Trash2 className='w-5 h-5' />
@@ -267,7 +267,7 @@ export default function ProductList() {
       {/* Edit Product Modal */}
       {showEditModal && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50'>
-          <div className='bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto'>
+          <div className='bg-white rounded shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto'>
             {/* Modal Header */}
             <div className='flex items-center justify-between p-6 border-b border-gray-200'>
               <h2 className='text-2xl font-bold text-gray-900'>Edit Product</h2>
@@ -299,7 +299,7 @@ export default function ProductList() {
                   value={formData.productName}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
+                  className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
                 />
               </div>
 
@@ -317,7 +317,7 @@ export default function ProductList() {
                   value={formData.category}
                   onChange={handleInputChange}
                   required
-                  className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
+                  className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
                 >
                   <option value=''>Select a category</option>
                   <option value='electronics'>Electronics</option>
@@ -347,7 +347,7 @@ export default function ProductList() {
                     required
                     min='0'
                     step='0.01'
-                    className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
+                    className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
                   />
                 </div>
 
@@ -366,7 +366,7 @@ export default function ProductList() {
                     onChange={handleInputChange}
                     required
                     min='0'
-                    className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
+                    className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
                   />
                 </div>
               </div>
@@ -386,7 +386,7 @@ export default function ProductList() {
                   onChange={handleInputChange}
                   required
                   rows='4'
-                  className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none'
+                  className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none'
                 />
               </div>
 
@@ -398,13 +398,13 @@ export default function ProductList() {
                     setShowEditModal(false);
                     setEditingProduct(null);
                   }}
-                  className='flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors'
+                  className='flex-1 px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50 transition-colors'
                 >
                   Cancel
                 </button>
                 <button
                   type='submit'
-                  className='flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors'
+                  className='flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors'
                 >
                   Update Product
                 </button>

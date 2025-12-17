@@ -29,7 +29,7 @@ const OrderTimeline = ({ currentStatus, createdAt, updatedAt }) => {
   if (currentStatus === 'cancelled') {
     return (
       <div className='py-4'>
-        <div className='flex items-center gap-3 bg-red-50 border border-red-200 rounded-lg p-4'>
+        <div className='flex items-center gap-3 bg-red-50 border border-red-200 rounded p-4'>
           <div className='flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center'>
             <XCircle className='w-6 h-6 text-red-600' />
           </div>

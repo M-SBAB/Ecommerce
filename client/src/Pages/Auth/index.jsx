@@ -111,9 +111,9 @@ const Auth = () => {
           onSubmit={handleSubmit(loginUser)}
           className='w-full max-w-md animate-fade-in'
         >
-          <div className='card shadow-2xl space-y-6'>
+          <div className='card shadow-2xl space-y-6 flex flex-col gap-6'>
             {/* Header */}
-            <div className='text-center'>
+            <div className='text-center mt-6 mb-6'>
               <div className='inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-4'>
                 <ShoppingBag className='w-8 h-8 text-primary-600' />
               </div>
@@ -125,7 +125,7 @@ const Auth = () => {
 
             {/* Error Message */}
             {error && (
-              <div className='bg-error-50 border border-error-200 text-error-800 px-4 py-3 rounded-lg flex items-center gap-2'>
+              <div className='bg-error-50 border border-error-200 text-error-800 px-4 py-3 rounded flex items-center gap-2'>
                 <AlertCircle className='w-5 h-5 shrink-0' />
                 <span className='text-sm'>{error}</span>
               </div>
@@ -133,14 +133,14 @@ const Auth = () => {
 
             {/* Success Message */}
             {success && (
-              <div className='bg-success-50 border border-success-200 text-success-800 px-4 py-3 rounded-lg flex items-center gap-2'>
+              <div className='bg-success-50 border border-success-200 text-success-800 px-4 py-3 rounded flex items-center gap-2'>
                 <CheckCircle className='w-5 h-5 shrink-0' />
                 <span className='text-sm'>{success}</span>
               </div>
             )}
 
             {/* Form Fields */}
-            <div className='space-y-4 flex flex-col gap-4 mb-20'>
+            <div className='space-y-4 flex flex-col gap-4 mb-2'>
               <div className=''>
                 <label className='block text-sm font-medium text-gray-700 mb-2'>
                   <User className='w-4 h-4 inline mr-2 mb-1' />
@@ -150,7 +150,7 @@ const Auth = () => {
                   type='text'
                   placeholder='Enter your username'
                   disabled={loading}
-                  className='input-base'
+                  className='input-base px-4 py-2.5'
                   {...register('loginusername', {
                     required: 'Username is required',
                   })}
@@ -171,7 +171,7 @@ const Auth = () => {
                   type='password'
                   placeholder='Enter your password'
                   disabled={loading}
-                  className='input-base'
+                  className='input-base px-4 py-2.5'
                   {...register('loginPassword', {
                     required: 'Password is required',
                   })}
@@ -188,7 +188,7 @@ const Auth = () => {
             <button
               type='submit'
               disabled={loading}
-              className='btn-primary w-full text-lg py-3 flex items-center justify-center gap-2 mt-20 mb-20'
+              className='btn-primary w-full text-lg py-3 flex items-center justify-center gap-2 mt-20 mb-20 px-4 py-2'
             >
               {loading ? (
                 <>
@@ -227,7 +227,7 @@ const Auth = () => {
           onSubmit={handleSubmit(signUpUser)}
           className='w-full max-w-md animate-fade-in'
         >
-          <div className='card shadow-2xl space-y-6'>
+          <div className='card shadow-2xl space-y-6 p-6'>
             {/* Header */}
             <div className='text-center'>
               <div className='inline-flex items-center justify-center w-16 h-16 bg-secondary-100 rounded-full mb-4'>
@@ -241,7 +241,7 @@ const Auth = () => {
 
             {/* Error Message */}
             {error && (
-              <div className='bg-error-50 border border-error-200 text-error-800 px-4 py-3 rounded-lg flex items-center gap-2'>
+              <div className='bg-error-50 border border-error-200 text-error-800 px-4 py-3 rounded flex items-center gap-2'>
                 <AlertCircle className='w-5 h-5 shrink-0' />
                 <span className='text-sm'>{error}</span>
               </div>
@@ -249,7 +249,7 @@ const Auth = () => {
 
             {/* Success Message */}
             {success && (
-              <div className='bg-success-50 border border-success-200 text-success-800 px-4 py-3 rounded-lg flex items-center gap-2'>
+              <div className='bg-success-50 border border-success-200 text-success-800 px-4 py-3 rounded flex items-center gap-2'>
                 <CheckCircle className='w-5 h-5 shrink-0' />
                 <span className='text-sm'>{success}</span>
               </div>
@@ -266,7 +266,7 @@ const Auth = () => {
                   type='text'
                   placeholder='Choose a username'
                   disabled={loading}
-                  className='input-base'
+                  className='input-base px-4 py-2.5'
                   {...register('signUpusername', {
                     required: 'Username is required',
                     minLength: {
@@ -291,7 +291,7 @@ const Auth = () => {
                   type='password'
                   placeholder='Create a password'
                   disabled={loading}
-                  className='input-base'
+                  className='input-base px-4 py-2.5'
                   {...register('signUpPassword', {
                     required: 'Password is required',
                     minLength: {
@@ -312,7 +312,7 @@ const Auth = () => {
             <button
               type='submit'
               disabled={loading}
-              className='btn-secondary w-full text-lg py-3 flex items-center justify-center gap-2'
+              className='btn-secondary w-full text-lg py-3 flex items-center justify-center gap-2 px-4 py-2'
             >
               {loading ? (
                 <>

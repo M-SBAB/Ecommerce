@@ -218,7 +218,7 @@ export default function AddProductForm() {
               <div className='flex flex-col sm:flex-row gap-4 pt-8 mt-8 border-t-2 border-gray-200'>
                 <button
                   type='submit'
-                  className='btn-primary btn-xl flex-1 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl'
+                  className='btn-primary btn-xl flex-1 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl px-4 py-2'
                 >
                   <Package className='w-5 h-5' />
                   Add Product
@@ -226,7 +226,7 @@ export default function AddProductForm() {
                 <button
                   type='button'
                   onClick={() => reset()}
-                  className='btn-outline btn-xl flex-1 flex items-center justify-center gap-3 hover:shadow-md'
+                  className='btn-outline btn-xl flex-1 flex items-center justify-center gap-3 hover:shadow-md px-4 py-2'
                 >
                   <X className='w-5 h-5' />
                   Reset Form

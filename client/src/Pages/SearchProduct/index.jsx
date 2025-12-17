@@ -203,7 +203,7 @@ export default function ProductSearchBar() {
                 placeholder='Search by product name or category...'
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
-                className='w-full pl-12 pr-12 py-4 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg'
+                className='w-full pl-12 pr-12 py-4 border-2 border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg'
               />
               {searchQuery && (
                 <button
@@ -283,7 +283,7 @@ export default function ProductSearchBar() {
                       // Category Result
                       <div
                         key={`cat-${index}`}
-                        className='border-2 border-indigo-200 rounded-lg p-4 bg-indigo-50'
+                        className='border-2 border-indigo-200 rounded p-4 bg-indigo-50'
                       >
                         <div className='flex items-center gap-3 mb-3'>
                           <Tag className='w-5 h-5 text-indigo-600' />
@@ -319,7 +319,7 @@ export default function ProductSearchBar() {
                       // Product Result
                       <div
                         key={`prod-${result.id}`}
-                        className='border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow'
+                        className='border border-gray-200 rounded p-4 hover:shadow-md transition-shadow'
                       >
                         <div className='flex items-center justify-between'>
                           <div className='flex-1'>
@@ -369,7 +369,7 @@ export default function ProductSearchBar() {
                     We couldn't find any products or categories matching "
                     {searchQuery}"
                   </p>
-                  <button onClick={clearSearch} className='btn-primary btn-lg'>
+                  <button onClick={clearSearch} className='btn-primary btn-lg px-4 py-2'>
                     Clear Search
                   </button>
                 </div>
@@ -392,7 +392,7 @@ export default function ProductSearchBar() {
                     <button
                       key={index}
                       onClick={() => handleSearch(category)}
-                      className='btn-outline p-4 flex flex-col items-center'
+                      className='btn-outline p-4 flex flex-col items-center px-4 py-2'
                     >
                       <Tag className='w-6 h-6 text-indigo-600 mb-2' />
                       <p className='font-medium text-gray-800 text-sm'>

@@ -31,7 +31,7 @@ const OrderConfirmationModal = ({ isOpen, order, onClose, onViewOrders }) => {
         {/* Order Details */}
         <div className='p-6 space-y-6'>
           {/* Order ID */}
-          <div className='bg-gray-50 rounded-lg p-4 text-center'>
+          <div className='bg-gray-50 rounded p-4 text-center'>
             <p className='text-sm text-gray-600 mb-1'>Order ID</p>
             <p className='text-lg font-bold text-gray-900 font-mono'>
               #{order._id?.slice(-8).toUpperCase() || 'N/A'}
@@ -104,7 +104,7 @@ const OrderConfirmationModal = ({ isOpen, order, onClose, onViewOrders }) => {
           </div>
 
           {/* Total */}
-          <div className='bg-blue-50 rounded-lg p-4'>
+          <div className='bg-blue-50 rounded p-4'>
             <div className='flex justify-between items-center'>
               <span className='text-gray-700 font-medium'>Total Amount</span>
               <span className='text-2xl font-bold text-blue-600'>
@@ -125,13 +125,13 @@ const OrderConfirmationModal = ({ isOpen, order, onClose, onViewOrders }) => {
           <div className='space-y-3'>
             <button
               onClick={onViewOrders}
-              className='w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors duration-200'
+              className='w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded transition-colors duration-200'
             >
               View My Orders
             </button>
             <button
               onClick={onClose}
-              className='w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 rounded-lg transition-colors duration-200'
+              className='w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 rounded transition-colors duration-200'
             >
               Continue Shopping
             </button>

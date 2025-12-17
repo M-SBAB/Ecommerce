@@ -11,7 +11,6 @@ import PlaceOrder from './Pages/PlaceOrder';
 import SearchProduct from './Pages/SearchProduct';
 import AddToCart from './Pages/AddToCart';
 import MyOrder from './Pages/MyOrder';
-import Login from './Pages/Login';
 import FrontPage from './Pages/FrontPage';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';

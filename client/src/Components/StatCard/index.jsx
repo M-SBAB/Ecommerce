@@ -37,7 +37,7 @@ const StatCard = ({
       onClick={onClick}
       className={`${
         colorClasses[color]
-      } text-white rounded-lg shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 ${
+      } text-white rounded shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 ${
         onClick ? 'cursor-pointer active:scale-100' : ''
       }`}
     >

@@ -36,7 +36,7 @@ const StatCardSkeleton = () => (
         <div className='h-8 bg-gray-200 rounded w-32 mb-2'></div>
         <div className='h-3 bg-gray-200 rounded w-20'></div>
       </div>
-      <div className='w-12 h-12 bg-gray-200 rounded-lg'></div>
+      <div className='w-12 h-12 bg-gray-200 rounded'></div>
     </div>
   </div>
 );
@@ -76,7 +76,7 @@ const ListSkeleton = () => (
       {[1, 2, 3].map((i) => (
         <div
           key={i}
-          className='flex items-center gap-3 p-3 bg-gray-50 rounded-lg'
+          className='flex items-center gap-3 bg-gray-50 rounded'
         >
           <div className='w-10 h-10 bg-gray-200 rounded'></div>
           <div className='flex-1'>
@@ -118,7 +118,7 @@ class ErrorBoundary extends React.Component {
             </p>
             <button
               onClick={() => window.location.reload()}
-              className='px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors'
+              className='px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors'
             >
               Reload Dashboard
             </button>
@@ -375,7 +375,7 @@ const Stats = () => {
         </div>
 
         {/* Filters Skeleton */}
-        <div className='bg-white border border-gray-200 rounded-lg p-4 animate-pulse'>
+        <div className='bg-white border border-gray-200 rounded p-4 animate-pulse'>
           <div className='flex flex-wrap gap-3'>
             <div className='h-10 bg-gray-200 rounded w-32'></div>
             <div className='h-10 bg-gray-200 rounded w-40'></div>
@@ -429,7 +429,7 @@ const Stats = () => {
           <p className='text-sm sm:text-base text-gray-600 mt-2'>{error}</p>
           <button
             onClick={fetchDashboardData}
-            className='mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors w-full sm:w-auto'
+            className='mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors w-full sm:w-auto'
           >
             Try Again
           </button>
@@ -454,7 +454,7 @@ const Stats = () => {
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className='flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm w-full sm:w-auto justify-center'
+            className='flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm w-full sm:w-auto justify-center'
           >
             <RefreshCw
               className={'w-4 h-4' + (refreshing ? ' animate-spin' : '')}
@@ -466,7 +466,7 @@ const Stats = () => {
         </div>
 
         {/* Filters Bar */}
-        <div className='bg-white border border-gray-200 rounded-lg p-3 sm:p-4 shadow-sm'>
+        <div className='bg-white border border-gray-200 rounded p-3 sm:p-4 shadow-sm'>
           <div className='flex flex-wrap items-center gap-2 sm:gap-3'>
             <div className='flex items-center gap-2 text-gray-700 font-medium'>
               <Filter className='w-4 h-4 sm:w-5 sm:h-5' />
@@ -503,7 +503,7 @@ const Stats = () => {
             {hasActiveFilters && (
               <button
                 onClick={handleClearAllFilters}
-                className='sm:ml-auto px-3 py-1.5 text-xs sm:text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors w-full sm:w-auto'
+                className='sm:ml-auto px-3 py-1.5 text-xs sm:text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded transition-colors w-full sm:w-auto'
               >
                 Clear All
               </button>

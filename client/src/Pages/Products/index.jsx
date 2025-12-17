@@ -141,12 +141,12 @@ const Products = () => {
                 placeholder='Search products...'
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
+                className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
               />
             </div>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className='flex items-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors'
+              className='flex items-center gap-2 px-4 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors'
             >
               <Filter className='w-5 h-5' />
               <span className='hidden sm:inline'>Filters</span>
@@ -165,7 +165,7 @@ const Products = () => {
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
+                    className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
                   >
                     {categories.map((cat) => (
                       <option key={cat.value} value={cat.value}>
@@ -188,7 +188,7 @@ const Products = () => {
                       setPriceRange({ ...priceRange, min: e.target.value })
                     }
                     min='0'
-                    className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
+                    className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
                   />
                 </div>
 
@@ -205,7 +205,7 @@ const Products = () => {
                       setPriceRange({ ...priceRange, max: e.target.value })
                     }
                     min='0'
-                    className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
+                    className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none'
                   />
                 </div>
               </div>
@@ -214,7 +214,7 @@ const Products = () => {
               <div className='flex justify-end'>
                 <button
                   onClick={clearFilters}
-                  className='flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors'
+                  className='flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors'
                 >
                   <X className='w-4 h-4' />
                   Clear Filters
@@ -260,7 +260,7 @@ const Products = () => {
                     />
                     {product.quantity === 0 && (
                       <div className='absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center'>
-                        <span className='bg-red-600 text-white px-4 py-2 rounded-lg font-semibold'>
+                        <span className='bg-red-600 text-white px-4 py-2 rounded font-semibold'>
                           Out of Stock
                         </span>
                       </div>
@@ -305,7 +305,7 @@ const Products = () => {
                     <button
                       onClick={() => handleAddToCart(product)}
                       disabled={product.quantity === 0}
-                      className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold transition-all duration-200 ${
+                      className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded font-semibold transition-all duration-200 ${
                         product.quantity === 0
                           ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
                           : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md active:scale-95'

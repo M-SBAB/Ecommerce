@@ -70,7 +70,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         {/* Close button for mobile */}
         <button
           onClick={onClose}
-          className='lg:hidden absolute top-4 right-4 p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-all duration-200 z-10'
+          className='lg:hidden absolute top-4 right-4 p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-all duration-200 z-10'
           aria-label='Close sidebar'
         >
           <X className='w-5 h-5' />
@@ -107,7 +107,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                   <Link
                     to={link.path}
                     onClick={() => onClose()}
-                    className='flex items-center px-4 py-3.5 mr-2 text-gray-300 hover:bg-gray-700 hover:text-white hover:shadow-lg hover:scale-105 rounded-lg transition-all duration-200 ease-in-out group gap-3'
+                    className='flex items-center px-4 py-3.5 mr-2 text-gray-300 hover:bg-gray-700 hover:text-white hover:shadow-lg hover:scale-105 rounded transition-all duration-200 ease-in-out group gap-3'
                   >
                     <IconComponent className='w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-200' />
                     <span className='font-medium'>{link.label}</span>
@@ -122,7 +122,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         <div className='pl-4 pr-2 py-6 border-t border-gray-700'>
           <button
             onClick={handleLogout}
-            className='flex items-center justify-center w-full px-4 py-3.5 mr-2 text-gray-300 hover:bg-error-600 hover:text-white hover:shadow-lg hover:scale-105 rounded-lg transition-all duration-200 ease-in-out font-medium group'
+            className='flex items-center justify-center w-full px-4 py-3.5 mr-2 text-gray-300 hover:bg-error-600 hover:text-white hover:shadow-lg hover:scale-105 rounded transition-all duration-200 ease-in-out font-medium group'
           >
             <LogOut className='w-5 h-5 mr-3 group-hover:rotate-12 transition-transform duration-200' />
             Logout

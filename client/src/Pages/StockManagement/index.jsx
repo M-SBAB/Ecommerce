@@ -146,7 +146,7 @@ export default function StockUpdate() {
           {/* Header */}
           <div>
             <div className='flex items-center gap-3 mb-2'>
-              <div className='w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center'>
+              <div className='w-10 h-10 bg-gray-900 rounded flex items-center justify-center'>
                 <Package className='w-5 h-5 text-white' />
               </div>
               <h1 className='text-3xl font-light text-gray-900'>
@@ -158,7 +158,7 @@ export default function StockUpdate() {
 
           {/* Success Message */}
           {successMessage && (
-            <div className='bg-green-50 border border-green-200 rounded-lg p-4 animate-pulse'>
+            <div className='bg-green-50 border border-green-200 rounded p-4 animate-pulse'>
               <div className='flex items-center gap-2'>
                 <svg
                   className='w-5 h-5 text-green-600'
@@ -180,7 +180,7 @@ export default function StockUpdate() {
 
           {/* Error Message */}
           {errorMessage && (
-            <div className='bg-red-50 border border-red-200 rounded-lg p-4'>
+            <div className='bg-red-50 border border-red-200 rounded p-4'>
               <div className='flex items-center gap-2'>
                 <svg
                   className='w-5 h-5 text-red-600'
@@ -203,9 +203,9 @@ export default function StockUpdate() {
           {/* Confirmation Dialog */}
           {showConfirmation && confirmData && (
             <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4'>
-              <div className='bg-white rounded-lg shadow-xl max-w-md w-full p-6 space-y-4'>
+              <div className='bg-white rounded shadow-xl max-w-md w-full p-6 space-y-4'>
                 <div className='flex items-start gap-3'>
-                  <div className='w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0'>
+                  <div className='w-10 h-10 bg-amber-100 rounded flex items-center justify-center flex-shrink-0'>
                     <svg
                       className='w-6 h-6 text-amber-600'
                       fill='none'
@@ -237,7 +237,7 @@ export default function StockUpdate() {
                         </span>
                         ?
                       </p>
-                      <div className='bg-gray-50 rounded-lg p-3 space-y-2'>
+                      <div className='bg-gray-50 rounded p-3 space-y-2'>
                         <div className='flex justify-between items-center'>
                           <span className='text-gray-600'>Current Stock:</span>
                           <span className='font-semibold text-gray-900'>
@@ -279,7 +279,7 @@ export default function StockUpdate() {
                     type='button'
                     onClick={cancelConfirmation}
                     disabled={isUpdating}
-                    className='flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+                    className='flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
                   >
                     Cancel
                   </button>
@@ -287,7 +287,7 @@ export default function StockUpdate() {
                     type='button'
                     onClick={updatestock}
                     disabled={isUpdating}
-                    className='flex-1 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+                    className='flex-1 px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
                   >
                     {isUpdating ? 'Updating...' : 'Confirm Update'}
                   </button>
@@ -298,7 +298,7 @@ export default function StockUpdate() {
 
           {/* Form */}
           <form onSubmit={handleSubmit(handleConfirmation)}>
-            <div className='bg-white border border-gray-200 rounded-lg p-6 sm:p-8'>
+            <div className='bg-white border border-gray-200 rounded p-6 sm:p-8'>
               {loading ? (
                 <div className='flex items-center justify-center py-12'>
                   <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900'></div>
@@ -319,7 +319,7 @@ export default function StockUpdate() {
                       Product Name <span className='text-red-500'>*</span>
                     </label>
                     <select
-                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                      className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${
                         errors.ProductId
                           ? 'border-red-300 focus:ring-red-500'
                           : 'border-gray-300 focus:ring-gray-900'
@@ -341,7 +341,7 @@ export default function StockUpdate() {
                       </p>
                     )}
                     {selectedProduct && (
-                      <div className='mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg'>
+                      <div className='mt-3 p-3 bg-blue-50 border border-blue-200 rounded'>
                         <p className='text-sm text-blue-900'>
                           <span className='font-semibold'>Current Stock:</span>{' '}
                           <span className='text-lg font-bold'>
@@ -359,7 +359,7 @@ export default function StockUpdate() {
                       Operation Type <span className='text-red-500'>*</span>
                     </label>
                     <select
-                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                      className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${
                         errors.Operation
                           ? 'border-red-300 focus:ring-red-500'
                           : 'border-gray-300 focus:ring-gray-900'
@@ -390,7 +390,7 @@ export default function StockUpdate() {
                       min='0'
                       max='1000000'
                       step='1'
-                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                      className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${
                         errors.UpdateStock
                           ? 'border-red-300 focus:ring-red-500'
                           : 'border-gray-300 focus:ring-gray-900'
@@ -425,7 +425,7 @@ export default function StockUpdate() {
                       selectedProduct &&
                       enteredQuantity &&
                       selectedOperation && (
-                        <div className='mt-3 p-4 bg-green-50 border border-green-200 rounded-lg'>
+                        <div className='mt-3 p-4 bg-green-50 border border-green-200 rounded'>
                           <div className='flex items-center justify-between'>
                             <div>
                               <p className='text-sm text-green-900 mb-1'>

@@ -45,7 +45,7 @@ const OrderStatusChart = ({
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className='bg-white p-3 rounded-lg shadow-lg border border-gray-200'>
+        <div className='bg-white p-3 rounded shadow-lg border border-gray-200'>
           <p className='text-sm font-semibold text-gray-900 mb-1'>
             {payload[0].name}
           </p>
@@ -59,7 +59,7 @@ const OrderStatusChart = ({
   };
 
   return (
-    <div className='bg-white rounded-lg shadow-md p-6'>
+    <div className='bg-white rounded shadow-md p-6'>
       <h3 className='text-xl font-bold text-gray-800 mb-4'>{title}</h3>
 
       <ResponsiveContainer width='100%' height={300}>

@@ -72,7 +72,7 @@ const RecentOrdersTable = ({ orders, limit = 10, onViewOrder }) => {
 
   if (!displayOrders.length) {
     return (
-      <div className='bg-white rounded-lg shadow-md p-6'>
+      <div className='bg-white rounded shadow-md p-6'>
         <h3 className='text-xl font-bold text-gray-800 mb-4'>Recent Orders</h3>
         <div className='text-center py-8 text-gray-500'>
           <Package className='w-12 h-12 mx-auto mb-2 opacity-50' />
@@ -83,7 +83,7 @@ const RecentOrdersTable = ({ orders, limit = 10, onViewOrder }) => {
   }
 
   return (
-    <div className='bg-white rounded-lg shadow-md overflow-hidden'>
+    <div className='bg-white rounded shadow-md overflow-hidden'>
       <div className='p-6 border-b border-gray-200'>
         <h3 className='text-xl font-bold text-gray-800'>Recent Orders</h3>
       </div>
@@ -164,7 +164,7 @@ const RecentOrdersTable = ({ orders, limit = 10, onViewOrder }) => {
                 <td className='px-6 py-4 whitespace-nowrap'>
                   <button
                     onClick={() => handleViewOrder(order._id)}
-                    className='inline-flex items-center px-3 py-1 text-sm font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-md transition-colors'
+                    className='inline-flex items-center px-3 py-1 text-sm font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded transition-colors'
                   >
                     <Eye className='w-4 h-4 mr-1' />
                     View

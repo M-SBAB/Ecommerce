@@ -358,7 +358,7 @@ const OrderViewUpdateUI = () => {
           )}
 
           {/* Search and Filter */}
-          <div className='bg-white rounded-lg shadow-sm p-4 mb-6'>
+          <div className='bg-white rounded shadow-sm p-4 mb-6'>
             <div className='space-y-4'>
               {/* First Row: Search and Status */}
               <div className='flex flex-col md:flex-row gap-4'>
@@ -369,7 +369,7 @@ const OrderViewUpdateUI = () => {
                     placeholder='Search by Order ID, Customer Name, or Product Name...'
                     value={searchTerm}
                     onChange={(e) => handleSearch(e.target.value)}
-                    className='w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                    className='w-full pl-10 pr-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                     disabled={isLoading}
                   />
                 </div>
@@ -378,7 +378,7 @@ const OrderViewUpdateUI = () => {
                   <select
                     value={statusFilter}
                     onChange={(e) => handleStatusFilter(e.target.value)}
-                    className='pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white min-w-[150px]'
+                    className='pl-10 pr-8 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white min-w-[150px]'
                     disabled={isLoading}
                   >
                     <option value='All'>All Status</option>
@@ -403,7 +403,7 @@ const OrderViewUpdateUI = () => {
                     type='date'
                     value={startDate}
                     onChange={(e) => handleDateFilter(e.target.value, endDate)}
-                    className='px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm'
+                    className='px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm'
                     disabled={isLoading}
                   />
                   <span className='text-gray-400'>to</span>
@@ -413,7 +413,7 @@ const OrderViewUpdateUI = () => {
                     onChange={(e) =>
                       handleDateFilter(startDate, e.target.value)
                     }
-                    className='px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm'
+                    className='px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm'
                     disabled={isLoading}
                   />
                 </div>
@@ -424,7 +424,7 @@ const OrderViewUpdateUI = () => {
                     endDate) && (
                     <button
                       onClick={clearFilters}
-                      className='btn-outline px-4 py-2 text-sm'
+                      className='btn-outline px-4 py-2 text-sm px-4 py-2'
                       disabled={isLoading}
                     >
                       Clear Filters
@@ -461,7 +461,7 @@ const OrderViewUpdateUI = () => {
 
           {/* Loading State */}
           {isLoading ? (
-            <div className='bg-white rounded-lg shadow-sm p-12 text-center'>
+            <div className='bg-white rounded shadow-sm p-12 text-center'>
               <Loader2 className='w-16 h-16 text-blue-600 mx-auto mb-4 animate-spin' />
               <h3 className='text-xl font-semibold text-gray-900 mb-2'>
                 Loading Orders...
@@ -471,7 +471,7 @@ const OrderViewUpdateUI = () => {
               </p>
             </div>
           ) : orders.length === 0 ? (
-            <div className='bg-white rounded-lg shadow-sm p-12 text-center'>
+            <div className='bg-white rounded shadow-sm p-12 text-center'>
               <Package className='w-16 h-16 text-gray-400 mx-auto mb-4' />
               <h3 className='text-xl font-semibold text-gray-900 mb-2'>
                 No Orders Found
@@ -488,7 +488,7 @@ const OrderViewUpdateUI = () => {
                 {orders.map((order) => (
                   <div
                     key={order._id}
-                    className='bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow'
+                    className='bg-white rounded shadow-sm hover:shadow-md transition-shadow'
                   >
                     {/* Order Header */}
                     <div className='border-b border-gray-200 p-6'>
@@ -594,7 +594,7 @@ const OrderViewUpdateUI = () => {
                     <div className='border-t border-gray-200 p-4'>
                       <button
                         onClick={() => handleEdit(order)}
-                        className='btn-primary btn-full flex items-center justify-center gap-2'
+                        className='btn-primary btn-full flex items-center justify-center gap-2 px-4 py-2'
                       >
                         <Edit className='w-4 h-4' />
                         Update Order
@@ -606,7 +606,7 @@ const OrderViewUpdateUI = () => {
 
               {/* Pagination Controls */}
               {totalPages > 1 && (
-                <div className='mt-8 flex items-center justify-between bg-white rounded-lg shadow-sm p-4'>
+                <div className='mt-8 flex items-center justify-between bg-white rounded shadow-sm p-4'>
                   <div className='text-sm text-gray-600'>
                     Page {currentPage} of {totalPages}
                   </div>
@@ -616,7 +616,7 @@ const OrderViewUpdateUI = () => {
                         setCurrentPage((prev) => Math.max(1, prev - 1))
                       }
                       disabled={currentPage === 1 || isLoading}
-                      className='btn-outline px-3 py-2 flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed'
+                      className='btn-outline px-3 py-2 flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2'
                     >
                       <ChevronLeft className='w-4 h-4' />
                       Previous
@@ -637,7 +637,7 @@ const OrderViewUpdateUI = () => {
                               key={pageNum}
                               onClick={() => setCurrentPage(pageNum)}
                               disabled={isLoading}
-                              className={`px-3 py-2 rounded-lg transition-colors ${
+                              className={`px-3 py-2 rounded transition-colors ${
                                 currentPage === pageNum
                                   ? 'bg-blue-600 text-white'
                                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -665,7 +665,7 @@ const OrderViewUpdateUI = () => {
                         setCurrentPage((prev) => Math.min(totalPages, prev + 1))
                       }
                       disabled={currentPage === totalPages || isLoading}
-                      className='btn-outline px-3 py-2 flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed'
+                      className='btn-outline px-3 py-2 flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2'
                     >
                       Next
                       <ChevronRight className='w-4 h-4' />
@@ -679,14 +679,14 @@ const OrderViewUpdateUI = () => {
           {/* Edit Modal */}
           {editingOrder && (
             <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50'>
-              <div className='bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto'>
+              <div className='bg-white rounded shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto'>
                 <div className='sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between'>
                   <h2 className='text-2xl font-bold text-gray-900'>
                     Update Order - #{editingOrder._id?.slice(-8).toUpperCase()}
                   </h2>
                   <button
                     onClick={handleCancel}
-                    className='btn-ghost'
+                    className='btn-ghost px-4 py-2'
                     disabled={isUpdating}
                   >
                     <X className='w-6 h-6' />
@@ -704,7 +704,7 @@ const OrderViewUpdateUI = () => {
                       onChange={(e) =>
                         handleInputChange('status', e.target.value)
                       }
-                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent capitalize'
+                      className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent capitalize'
                       disabled={isUpdating}
                     >
                       {statusOptions.map((status) => (
@@ -716,7 +716,7 @@ const OrderViewUpdateUI = () => {
                   </div>
 
                   {/* Order Timeline */}
-                  <div className='bg-white border border-gray-200 rounded-lg p-4'>
+                  <div className='bg-white border border-gray-200 rounded p-4'>
                     <OrderTimeline
                       currentStatus={editingOrder.status}
                       createdAt={editingOrder.createdAt}
@@ -725,7 +725,7 @@ const OrderViewUpdateUI = () => {
                   </div>
 
                   {/* Order Information - Read Only */}
-                  <div className='bg-gray-50 rounded-lg p-4 space-y-3'>
+                  <div className='bg-gray-50 rounded p-4 space-y-3'>
                     <h3 className='text-sm font-semibold text-gray-700 mb-3'>
                       Order Information (Read Only)
                     </h3>
@@ -796,7 +796,7 @@ const OrderViewUpdateUI = () => {
                       onChange={(e) =>
                         handleInputChange('paymentStatus', e.target.value)
                       }
-                      className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent capitalize'
+                      className='w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent capitalize'
                       disabled={isUpdating}
                     >
                       <option value='pending'>Pending</option>
@@ -818,7 +818,7 @@ const OrderViewUpdateUI = () => {
                     </div>
 
                     {editingOrder.items && editingOrder.items.length > 0 && (
-                      <div className='border border-gray-200 rounded-lg overflow-hidden mb-4'>
+                      <div className='border border-gray-200 rounded overflow-hidden mb-4'>
                         <table className='w-full text-sm'>
                           <thead className='bg-gray-50'>
                             <tr>
@@ -898,7 +898,7 @@ const OrderViewUpdateUI = () => {
                             e.target.value = '';
                           }
                         }}
-                        className='flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                        className='flex-1 px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                         disabled={isUpdating || isLoadingProducts}
                       >
                         <option value=''>
@@ -928,14 +928,14 @@ const OrderViewUpdateUI = () => {
                 <div className='sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex gap-3'>
                   <button
                     onClick={handleCancel}
-                    className='btn-outline flex-1'
+                    className='btn-outline flex-1 px-4 py-2'
                     disabled={isUpdating}
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleSave}
-                    className='btn-success flex-1 flex items-center justify-center gap-2'
+                    className='btn-success flex-1 flex items-center justify-center gap-2 px-4 py-2'
                     disabled={isUpdating}
                   >
                     {isUpdating ? (
