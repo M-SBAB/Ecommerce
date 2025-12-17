@@ -1,4 +1,5 @@
 import User from '../models/user.js';
+import mongoose from 'mongoose';
 
 export const signupUser = async (req, res) => {
   try {
@@ -55,25 +56,43 @@ export const loginUser = async (req, res) => {
 // Middleware to check if user is admin
 export const isAdmin = async (req, res, next) => {
   try {
+    // Debug log to see what we're receiving
+    console.log('isAdmin middleware - req.query:', req.query);
+    console.log('isAdmin middleware - req.body:', req.body);
+
     // Get userId from body (POST/PATCH) or query params (GET)
-    const userId = req.body.userId || req.query.userId;
+    const userId =
+      (req.query && req.query.userId) || (req.body && req.body.userId);
 
     if (!userId) {
+      console.log('No userId found in request');
       return res.status(400).json({ ErrorMessage: 'User ID is required' });
+    }
+
+    // Validate if userId is a valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      console.log('Invalid userId format:', userId);
+      return res.status(400).json({ ErrorMessage: 'Invalid User ID format' });
     }
 
     const user = await User.findById(userId);
 
-    if (!user) return res.status(404).json({ ErrorMessage: 'User not found' });
+    if (!user) {
+      console.log('User not found for userId:', userId);
+      return res.status(404).json({ ErrorMessage: 'User not found' });
+    }
 
     if (user.role !== 'admin') {
+      console.log('User is not admin:', user.username, 'role:', user.role);
       return res
         .status(403)
         .json({ ErrorMessage: 'Access denied. Admin only.' });
     }
 
+    console.log('Admin access granted for user:', user.username);
     next();
   } catch (error) {
+    console.error('isAdmin middleware error:', error);
     res.status(500).json({ ErrorMessage: 'Authorization error' });
   }
 };

@@ -157,6 +157,11 @@ const Stats = () => {
 
   // Build query params with filters
   const buildQueryParams = (baseParams = {}) => {
+    console.log('Building query params with user:', user);
+    if (!user || !user._id) {
+      console.error('User or user._id is undefined!', user);
+      throw new Error('User not authenticated');
+    }
     const params = new URLSearchParams({
       userId: user._id,
       ...baseParams,
