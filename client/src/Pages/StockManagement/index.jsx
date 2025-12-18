@@ -469,7 +469,7 @@ export default function StockUpdate() {
                   <button
                     type='submit'
                     disabled={isUpdating}
-                    className={`btn-primary btn-lg btn-full ${
+                    className={`btn-primary btn-lg btn-full px-4 py-2 ${
                       isUpdating ? 'opacity-50 cursor-not-allowed' : ''
                     }`}
                   >
