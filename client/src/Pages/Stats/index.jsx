@@ -333,23 +333,23 @@ const Stats = () => {
 
   // Navigation handlers
   const handleNavigateToOrders = () => {
-    navigate('/manage-order');
+    navigate('/Dashboard/ManageOrder');
   };
 
   const handleNavigateToProducts = () => {
-    navigate('/list-products');
+    navigate('/dashboard/list');
   };
 
   const handleNavigateToLowStock = () => {
-    navigate('/stock-management');
+    navigate('/Dashboard/StockManagement');
   };
 
   const handleViewOrder = (orderId) => {
-    navigate(`/manage-order?orderId=${orderId}`);
+    navigate(`/Dashboard/ManageOrder?orderId=${orderId}`);
   };
 
   const handleViewProduct = (productId) => {
-    navigate(`/list-products?productId=${productId}`);
+    navigate(`/Dashboard/list?productId=${productId}`);
   };
 
   // Check if any filters are active

@@ -45,7 +45,7 @@ const TopProductsList = ({ products, limit = 5, onViewProduct }) => {
 
   // Handle view products list
   const handleViewProducts = () => {
-    navigate('/list-products');
+    navigate('/Dashboard/list');
   };
 
   // Handle view single product
@@ -53,7 +53,7 @@ const TopProductsList = ({ products, limit = 5, onViewProduct }) => {
     if (onViewProduct) {
       onViewProduct(productId);
     } else {
-      navigate(`/list-products?productId=${productId}`);
+      navigate(`/Dashboard/list?productId=${productId}`);
     }
   };
 

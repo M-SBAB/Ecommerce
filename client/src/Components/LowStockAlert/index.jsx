@@ -23,7 +23,7 @@ const LowStockAlert = ({ products, threshold = 10, onViewProduct }) => {
 
   // Handle navigate to stock management
   const handleManageStock = () => {
-    navigate('/stock-management');
+    navigate('/Dashboard/StockManagement');
   };
 
   // Handle view product
@@ -31,7 +31,7 @@ const LowStockAlert = ({ products, threshold = 10, onViewProduct }) => {
     if (onViewProduct) {
       onViewProduct(productId);
     } else {
-      navigate(`/list-products?productId=${productId}`);
+      navigate(`/Dashboard/list?productId=${productId}`);
     }
   };
 
