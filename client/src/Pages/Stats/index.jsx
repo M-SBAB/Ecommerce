@@ -74,10 +74,7 @@ const ListSkeleton = () => (
     <div className='h-6 bg-gray-200 rounded w-32 mb-4'></div>
     <div className='space-y-3'>
       {[1, 2, 3].map((i) => (
-        <div
-          key={i}
-          className='flex items-center gap-3 bg-gray-50 rounded'
-        >
+        <div key={i} className='flex items-center gap-3 bg-gray-50 rounded'>
           <div className='w-10 h-10 bg-gray-200 rounded'></div>
           <div className='flex-1'>
             <div className='h-4 bg-gray-200 rounded w-3/4 mb-2'></div>
@@ -157,11 +154,11 @@ const Stats = () => {
 
   // Build query params with filters
   const buildQueryParams = (baseParams = {}) => {
-    console.log('Building query params with user:', user);
     if (!user || !user._id) {
       console.error('User or user._id is undefined!', user);
       throw new Error('User not authenticated');
     }
+
     const params = new URLSearchParams({
       userId: user._id,
       ...baseParams,
@@ -628,9 +625,9 @@ const Stats = () => {
 
           {/* Order Status Chart */}
           <OrderStatusChart
-            data={dashboardStats?.orders?.statusDistribution || []}
+            data={dashboardStats?.orders?.byStatus || []}
             title='Order Status Distribution'
-            chartType='pie'
+            type='pie'
           />
         </div>
 
