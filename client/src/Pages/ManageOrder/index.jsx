@@ -21,6 +21,7 @@ import OrderTimeline from '../../Components/OrderTimeline';
 import Toast from '../../Components/Toast';
 import { useAuth } from '../../context/AuthContext';
 import LoadingIndicator from '../../Components/LoadingIndicator';
+import Pagination from '../../Components/Pagination';
 
 const OrderViewUpdateUI = () => {
   const { user } = useAuth();
@@ -369,7 +370,10 @@ const OrderViewUpdateUI = () => {
                     type='text'
                     placeholder='Search by Order ID, Customer Name, or Product Name...'
                     value={searchTerm}
-                    onChange={(e) => handleSearch(e.target.value)}
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      setCurrentPage(1);
+                    }}
                     className='w-full pl-10 pr-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                     disabled={isLoading}
                   />
@@ -425,7 +429,7 @@ const OrderViewUpdateUI = () => {
                     endDate) && (
                     <button
                       onClick={clearFilters}
-                      className='btn-outline px-4 py-2 text-sm px-4 py-2'
+                      className='btn-outline px-4 py-2 text-sm'
                       disabled={isLoading}
                     >
                       Clear Filters
@@ -601,74 +605,12 @@ const OrderViewUpdateUI = () => {
               </div>
 
               {/* Pagination Controls */}
-              {totalPages > 1 && (
-                <div className='mt-8 flex items-center justify-between bg-white rounded shadow-sm p-4'>
-                  <div className='text-sm text-gray-600'>
-                    Page {currentPage} of {totalPages}
-                  </div>
-                  <div className='flex items-center gap-2'>
-                    <button
-                      onClick={() =>
-                        setCurrentPage((prev) => Math.max(1, prev - 1))
-                      }
-                      disabled={currentPage === 1 || isLoading}
-                      className='btn-outline px-3 py-2 flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2'
-                    >
-                      <ChevronLeft className='w-4 h-4' />
-                      Previous
-                    </button>
-
-                    {/* Page Numbers */}
-                    <div className='flex gap-1'>
-                      {[...Array(totalPages)].map((_, idx) => {
-                        const pageNum = idx + 1;
-                        // Show first, last, current, and adjacent pages
-                        if (
-                          pageNum === 1 ||
-                          pageNum === totalPages ||
-                          Math.abs(pageNum - currentPage) <= 1
-                        ) {
-                          return (
-                            <button
-                              key={pageNum}
-                              onClick={() => setCurrentPage(pageNum)}
-                              disabled={isLoading}
-                              className={`px-3 py-2 rounded transition-colors ${
-                                currentPage === pageNum
-                                  ? 'bg-blue-600 text-white'
-                                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                              } disabled:opacity-50`}
-                            >
-                              {pageNum}
-                            </button>
-                          );
-                        } else if (
-                          pageNum === currentPage - 2 ||
-                          pageNum === currentPage + 2
-                        ) {
-                          return (
-                            <span key={pageNum} className='px-2 text-gray-400'>
-                              ...
-                            </span>
-                          );
-                        }
-                        return null;
-                      })}
-                    </div>
-
-                    <button
-                      onClick={() =>
-                        setCurrentPage((prev) => Math.min(totalPages, prev + 1))
-                      }
-                      disabled={currentPage === totalPages || isLoading}
-                      className='btn-outline px-3 py-2 flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2'
-                    >
-                      Next
-                      <ChevronRight className='w-4 h-4' />
-                    </button>
-                  </div>
-                </div>
-              )}
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+                isLoading={isLoading}
+              />
             </>
           )}
 

@@ -1,6 +1,7 @@
 import { Search, Package, Edit, Trash2, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import Pagination from '../../Components/Pagination';
 
 export default function ProductList() {
   const [products, setProducts] = useState(null);
@@ -16,18 +17,35 @@ export default function ProductList() {
   });
   const { user } = useAuth();
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [productsPerPage] = useState(10);
+
   const getAllProducts = async () => {
     try {
-      let url = 'http://localhost:6001/products/all';
+      const params = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: productsPerPage.toString(),
+      });
+
       if (searchTerm) {
-        url += `?search=${searchTerm}`;
+        params.append('search', searchTerm);
       }
+
+      const url = `http://localhost:6001/products/all?${params.toString()}`;
       const res = await fetch(url, {
         method: 'GET',
       });
       const response = await res.json();
       if (response.products) {
         setProducts(response.products);
+        // Update pagination info
+        if (response.pagination) {
+          setTotalPages(response.pagination.totalPages);
+          setTotalProducts(response.pagination.totalProducts);
+        }
       } else if (response.ErrorMessage) {
         alert(response.ErrorMessage);
       }
@@ -39,10 +57,11 @@ export default function ProductList() {
 
   useEffect(() => {
     getAllProducts();
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     const delaySearch = setTimeout(() => {
+      setCurrentPage(1); // Reset to first page on search
       getAllProducts();
     }, 500);
     return () => clearTimeout(delaySearch);
@@ -260,6 +279,16 @@ export default function ProductList() {
                 </tbody>
               </table>
             </div>
+          </div>
+
+          {/* Pagination Controls */}
+          <div className='mt-6'>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              isLoading={false}
+            />
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@ export const addProduct = async (req, res) => {
 export const getAllProduct = async (req, res) => {
   try {
     // Get query parameters for search/filter
-    const { search, category, minPrice, maxPrice } = req.query;
+    const { search, category, minPrice, maxPrice, page, limit } = req.query;
 
     // Build filter object
     let filter = {};
@@ -43,11 +43,33 @@ export const getAllProduct = async (req, res) => {
       if (maxPrice) filter.price.$lte = Number(maxPrice);
     }
 
-    const products = await Product.find(filter);
+    // Pagination
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 10;
+    const skip = (pageNum - 1) * limitNum;
+
+    // Get total count for pagination
+    const totalProducts = await Product.countDocuments(filter);
+
+    // Get products with pagination
+    const products = await Product.find(filter)
+      .skip(skip)
+      .limit(limitNum)
+      .sort({ createdAt: -1 }); // Sort by newest first
+
     if (!products) {
       return res.json({ ErrorMessage: 'No products' });
     }
-    res.status(200).json({ products });
+
+    res.status(200).json({
+      products,
+      pagination: {
+        currentPage: pageNum,
+        totalPages: Math.ceil(totalProducts / limitNum),
+        totalProducts,
+        limit: limitNum,
+      },
+    });
   } catch (error) {
     res.status(500).json({ ErrorMessage: 'Error getting all products!' });
   }
