@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Search, ShoppingCart, Filter, X, Package } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import Toast from '../../Components/Toast';
+import LoadingIndicator from '../../Components/LoadingIndicator';
 
 const Products = () => {
   const { addToCart } = useCart();
