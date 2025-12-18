@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Package } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
+import LoadingIndicator from '../../Components/LoadingIndicator';
 
 export default function StockUpdate() {
   const {
@@ -300,9 +301,11 @@ export default function StockUpdate() {
           <form onSubmit={handleSubmit(handleConfirmation)}>
             <div className='bg-white border border-gray-200 rounded p-6 sm:p-8'>
               {loading ? (
-                <div className='flex items-center justify-center py-12'>
-                  <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900'></div>
-                </div>
+                <LoadingIndicator
+                  message='Loading Products...'
+                  subMessage='Please wait while we fetch the products.'
+                  size='md'
+                />
               ) : products && products.length === 0 ? (
                 <div className='text-center py-12'>
                   <Package className='w-16 h-16 text-gray-400 mx-auto mb-4' />

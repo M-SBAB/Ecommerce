@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import OrderTimeline from '../../Components/OrderTimeline';
+import LoadingIndicator from '../../Components/LoadingIndicator';
 
 export default function OrderManagement() {
   const { user } = useAuth();
@@ -205,15 +206,10 @@ export default function OrderManagement() {
 
           {/* Loading State */}
           {isLoading ? (
-            <div className='bg-white rounded-xl shadow-lg p-12 text-center'>
-              <Loader2 className='w-16 h-16 text-blue-600 mx-auto mb-4 animate-spin' />
-              <h3 className='text-xl font-semibold text-slate-800 mb-2'>
-                Loading Your Orders...
-              </h3>
-              <p className='text-slate-600'>
-                Please wait while we fetch your orders.
-              </p>
-            </div>
+            <LoadingIndicator
+              message='Loading Your Orders...'
+              subMessage='Please wait while we fetch your orders.'
+            />
           ) : orders.length === 0 ? (
             <div className='bg-white rounded-xl shadow-lg p-12 text-center'>
               <Package className='w-16 h-16 text-gray-400 mx-auto mb-4' />

@@ -20,6 +20,7 @@ import {
 import OrderTimeline from '../../Components/OrderTimeline';
 import Toast from '../../Components/Toast';
 import { useAuth } from '../../context/AuthContext';
+import LoadingIndicator from '../../Components/LoadingIndicator';
 
 const OrderViewUpdateUI = () => {
   const { user } = useAuth();
@@ -461,15 +462,10 @@ const OrderViewUpdateUI = () => {
 
           {/* Loading State */}
           {isLoading ? (
-            <div className='bg-white rounded shadow-sm p-12 text-center'>
-              <Loader2 className='w-16 h-16 text-blue-600 mx-auto mb-4 animate-spin' />
-              <h3 className='text-xl font-semibold text-gray-900 mb-2'>
-                Loading Orders...
-              </h3>
-              <p className='text-gray-600'>
-                Please wait while we fetch the orders.
-              </p>
-            </div>
+            <LoadingIndicator
+              message='Loading Orders...'
+              subMessage='Please wait while we fetch the orders.'
+            />
           ) : orders.length === 0 ? (
             <div className='bg-white rounded shadow-sm p-12 text-center'>
               <Package className='w-16 h-16 text-gray-400 mx-auto mb-4' />

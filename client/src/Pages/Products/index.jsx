@@ -226,9 +226,10 @@ const Products = () => {
 
         {/* Products Grid */}
         {loading ? (
-          <div className='flex justify-center items-center py-20'>
-            <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600'></div>
-          </div>
+          <LoadingIndicator
+            message='Loading Products...'
+            subMessage='Please wait while we fetch the products.'
+          />
         ) : products.length === 0 ? (
           <div className='text-center py-20'>
             <Package className='w-16 h-16 text-gray-400 mx-auto mb-4' />

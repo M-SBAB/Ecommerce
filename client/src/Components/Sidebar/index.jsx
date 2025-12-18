@@ -59,7 +59,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Sidebar */}
       <div
         className={`
-        fixed lg:static inset-y-0 left-0 z-50
+        fixed top-0 left-0 z-50
         h-screen w-[280px] lg:w-[300px]
         bg-gradient-to-b from-gray-900 to-gray-800 shadow-2xl
         flex flex-col
@@ -78,7 +78,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
         {/* Header */}
         <div className='border-b border-gray-700 pt-4 pb-2'>
-          <h1 className='text-2xl text-center text-white font-bold py-6 px-4'>
+          <h1 className='text-2xl text-center text-white font-bold pt-6 px-4'>
             {isAdmin() ? 'Admin Panel' : 'User Dashboard'}
           </h1>
           {user && (
@@ -99,7 +99,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           className='flex-1 overflow-y-auto pl-4 pr-2 mt-8 mb-4'
           style={{ marginLeft: '1rem', marginTop: '2rem' }}
         >
-          <ul className='flex flex-col gap-4 items-start'>
+          <ul>
             {navigationLinks.map((link) => {
               const IconComponent = link.icon;
               return (

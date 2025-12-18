@@ -17,8 +17,8 @@ const Navbar = ({ onMenuClick }) => {
   };
 
   return (
-    <div className='bg-white shadow-md border-b border-gray-200'>
-      <div className='flex items-center justify-between px-4 sm:px-6 py-10'>
+    <div className='fixed top-0 left-0 lg:left-[300px] right-0 z-40 bg-white shadow-md border-b border-gray-200'>
+      <div className='flex items-center justify-between px-4 sm:px-6 py-2'>
         {/* Hamburger Menu - Mobile Only */}
         <button
           onClick={onMenuClick}
@@ -66,7 +66,7 @@ const Navbar = ({ onMenuClick }) => {
 
             <button
               onClick={handleLogout}
-              className='flex items-center gap-2 px-3 sm:px-4 py-2 bg-error-500 hover:bg-error-600 text-white rounded transition-colors duration-200 shadow-sm hover:shadow-md'
+              className='flex items-center gap-2 px-3 sm:px-4 py-2 lg:py-4 bg-error-500 hover:bg-error-600 text-white rounded transition-colors duration-200 shadow-sm hover:shadow-md'
             >
               <LogOut className='w-4 h-4' />
               <span className='hidden sm:inline text-sm font-medium'>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './Pages/Dashboard';
+import DashboardLayout from './Components/Layout/DashboardLayout';
 import AddProducts from './Pages/AddProducts';
 import Auth from './Pages/Auth';
 import Stats from './Pages/Stats';
@@ -24,7 +24,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<Auth />} />
-              <Route path='/Dashboard' element={<Dashboard />}>
+              <Route path='/Dashboard' element={<DashboardLayout />}>
                 {/* Admin Routes */}
                 <Route
                   index
