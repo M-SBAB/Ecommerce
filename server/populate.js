@@ -416,9 +416,7 @@ const randomDate = (start, end) => {
 const populateDatabase = async () => {
   try {
     console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(
-      'mongodb+srv://s22bdocs1m01174_db_user:nAiWZxj1sT8IB2Nv@maincluster.gehzeyy.mongodb.net/ecommerce_db?appName=Mohsin-FYP'
-    );
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('✅ Connected to MongoDB');
 
     // Check if admin exists

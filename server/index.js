@@ -20,14 +20,12 @@ app.use('/dashboard', DashboardRoutes);
 
 const PORT = process.env.PORT || 6001;
 mongoose
-  .connect(
-    'mongodb+srv://s22bdocs1m01174_db_user:nAiWZxj1sT8IB2Nv@maincluster.gehzeyy.mongodb.net/ecommerce_db?appName=Mohsin-FYP'
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     app.listen(PORT, () => console.log(`Server Connected on PORT ${PORT}`));
     console.log('Connected to MongoDB - Database: ecommerce_db');
   })
   .catch((err) => {
-    console.log('Server didnt connect');
+    console.log('Server could not connect');
     console.error('MongoDB connection error:', err);
   });
